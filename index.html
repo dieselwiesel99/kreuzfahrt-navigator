@@ -1216,8 +1216,79 @@ el.className='countdown';
 el.style.background='linear-gradient(135deg,#00cc66,#00994d)';
 }
 }
-};
+},
+weatherCities:{
+stockholm:'Stockholm,Sweden',
+visby:'Visby,Sweden',
+gdansk:'Gdansk,Poland',
+karlskrona:'Karlskrona,Sweden',
+copenhagen:'Copenhagen,Denmark'
+},
 
+async loadWeather(harbor){
+const content=document.getElementById('weatherContent');
+content.innerHTML='<div class="card"><h3>🌦️ Lädt Wetter...</h3></div>';
+
+document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+
+try{
+const city=this.weatherCities[harbor];
+const res=await fetch(`/.netlify/functions/weather?city=${encodeURIComponent(city)}`);
+const data=await res.json();
+
+if(!data.forecast)throw new Error('Keine Daten');
+
+const current=data.current;
+const forecast=data.forecast.forecastday;
+
+let html='<div class="card">';
+html+=`<h3>🌦️ ${data.location.name}</h3>`;
+html+=`<div style="text-align:center;margin:20px 0">`;
+html+=`<div style="font-size:3em">${this.getWeatherIcon(current.condition.code)}</div>`;
+html+=`<div style="font-size:2.5em;font-weight:900;color:#0066cc;margin:10px 0">${Math.round(current.temp_c)}°C</div>`;
+html+=`<div style="font-size:1.2em">${current.condition.text}</div>`;
+html+=`<div style="color:#666">Gefühlt ${Math.round(current.feelslike_c)}°C • Wind ${Math.round(current.wind_kph)} km/h</div>`;
+html+=`</div></div>`;
+
+html+='<div class="card"><h3>📅 7-Tage-Vorhersage</h3>';
+forecast.forEach((day,i)=>{
+const date=new Date(day.date);
+const dayName=i===0?'Heute':date.toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'short'});
+html+=`<div class="attraction-item"><strong>${dayName}</strong>`;
+html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">`;
+html+=`<div style="font-size:2em">${this.getWeatherIcon(day.day.condition.code)}</div>`;
+html+=`<div style="flex:1;margin:0 15px">`;
+html+=`<div style="font-weight:600">${day.day.condition.text}</div>`;
+html+=`<div style="color:#666;font-size:0.9em">💧 ${day.day.daily_chance_of_rain}%</div>`;
+html+=`</div>`;
+html+=`<div style="text-align:right">`;
+html+=`<div style="font-weight:800;font-size:1.2em;color:#0066cc">${Math.round(day.day.maxtemp_c)}°</div>`;
+html+=`<div style="color:#666">${Math.round(day.day.mintemp_c)}°</div>`;
+html+=`</div></div></div>`;
+});
+html+=`</div>`;
+
+content.innerHTML=html;
+}catch(e){
+content.innerHTML='<div class="card"><h3>❌ Fehler</h3><p>Wetter nicht verfügbar.</p></div>';
+}
+},
+
+getWeatherIcon(code){
+if(code===1000)return'☀️';
+if(code===1003)return'🌤️';
+if(code===1006||code===1009)return'☁️';
+if(code===1030||code===1135||code===1147)return'🌫️';
+if(code>=1063&&code<=1072)return'🌧️';
+if(code>=1150&&code<=1201)return'🌧️';
+if(code>=1204&&code<=1237)return'🌨️';
+if(code>=1240&&code<=1246)return'🌦️';
+if(code>=1249&&code<=1264)return'🌨️';
+if(code===1273||code===1276)return'⛈️';
+return'🌦️';
+}
+};
 document.addEventListener('DOMContentLoaded',()=>APP.init());
 </script>
 </body>
