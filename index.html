@@ -88,10 +88,22 @@ border:2px solid rgba(255,255,255,0.2);
 .page.active{display:block}
 .back-btn{background:rgba(255,255,255,0.2);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:12px 20px;border-radius:12px;font-size:1em;font-weight:700;cursor:pointer;margin-bottom:15px;display:inline-flex;align-items:center;gap:8px}
 .back-btn:active{transform:scale(0.95)}
-.wc-item{background:#f9fafb;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #4facfe}
+.wc-item{background:#f9fafb;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #4facfe;position:relative}
 .wc-item strong{color:#4facfe;font-size:1.05em}
 .wc-rating{color:#ffd93d;font-size:1.1em}
+.wc-distance{position:absolute;top:15px;right:15px;background:#4facfe;color:#fff;padding:5px 10px;border-radius:8px;font-size:0.85em;font-weight:700}
+.mic-btn{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;border:none;padding:20px;border-radius:50%;font-size:2em;width:80px;height:80px;margin:20px auto;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s;box-shadow:0 8px 30px rgba(245,87,108,0.4)}
+.mic-btn:active{transform:scale(0.95)}
+.mic-btn.listening{animation:micPulse 1s infinite;background:linear-gradient(135deg,#ff6b6b,#ee5a6f)}
+@keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.translation-box{background:#f0f7ff;padding:20px;border-radius:15px;margin:15px 0;min-height:100px}
+.translation-result{font-size:1.4em;font-weight:700;color:#0066cc;margin:10px 0}
+.lang-selector{display:flex;gap:10px;margin:15px 0;justify-content:center}
+.lang-btn{background:rgba(255,255,255,0.3);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:10px 20px;border-radius:12px;cursor:pointer;transition:all 0.2s}
+.lang-btn.active{background:#fff;color:#0066cc;border-color:#fff}
 input[type="datetime-local"]{font-size:1em!important}
+.search-input{width:100%;padding:15px;border:3px solid #e0e0e0;border-radius:12px;font-size:1.1em;margin:10px 0}
+.search-input:focus{border-color:#0066cc;outline:none}
 @media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}}
 </style>
 </head>
@@ -205,670 +217,114 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="subtitle">01. Juni • 08:00 - 18:00 Uhr</div>
 <div class="countdown" id="countdown-detail-stockholm" style="margin-top:10px">Lädt...</div>
 </div>
-
 <div class="card">
 <h3>🚇 Vom Terminal ins Zentrum</h3>
-<div class="route-step">
-<span class="step-number">1</span>
-<strong>Zu Fuß zur Bushaltestelle</strong><br>
-<small>200m • 3 Min vom Terminal Frihamnen</small>
+<div class="route-step"><span class="step-number">1</span><strong>Zu Fuß zur Bushaltestelle</strong><br><small>200m • 3 Min vom Terminal Frihamnen</small></div>
+<div class="route-step"><span class="step-number">2</span><strong>Bus 76 → Ropsten</strong><br><small>10 Min • Alle 15 Min</small></div>
+<div class="route-step"><span class="step-number">3</span><strong>T-bana Röd Linje → T-Centralen</strong><br><small>15 Min • Alle 5-10 Min</small></div>
+<div class="route-step"><span class="step-number">4</span><strong>5 Min zu Fuß → Gamla Stan</strong><br><small>✅ Angekommen!</small></div>
+<div class="info-card">💰 <strong>Ticket:</strong> 39 SEK (~3,40€) • 75 Min gültig<br>📱 <strong>App:</strong> "SL - Stockholm Travel"</div>
 </div>
-<div class="route-step">
-<span class="step-number">2</span>
-<strong>Bus 76 → Ropsten</strong><br>
-<small>10 Min • Alle 15 Min</small>
-</div>
-<div class="route-step">
-<span class="step-number">3</span>
-<strong>T-bana Röd Linje → T-Centralen</strong><br>
-<small>15 Min • Alle 5-10 Min</small>
-</div>
-<div class="route-step">
-<span class="step-number">4</span>
-<strong>5 Min zu Fuß → Gamla Stan</strong><br>
-<small>✅ Angekommen!</small>
-</div>
-<div class="info-card">
-💰 <strong>Ticket:</strong> 39 SEK (~3,40€) • 75 Min gültig<br>
-📱 <strong>App:</strong> "SL - Stockholm Travel"
-</div>
-</div>
-
 <div class="card">
 <h3>🏛️ Top-Sehenswürdigkeiten</h3>
-<div class="attraction-item">
-<strong>Gamla Stan (Altstadt)</strong>
-<p>Mittelalterliche Gassen, Königspalast, bunte Häuser</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 3,5 km (45 Min)</span>
-<span class="meta-item">⏱️ 2-3 Std</span>
-<span class="meta-item">💰 Kostenlos</span>
+<div class="attraction-item"><strong>Gamla Stan (Altstadt)</strong><p>Mittelalterliche Gassen, Königspalast, bunte Häuser</p><div class="attraction-meta"><span class="meta-item">🚶 3,5 km (45 Min)</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div>
+<div class="attraction-item"><strong>Vasa-Museum</strong><p>Kriegsschiff aus 1628, besterhaltenes weltweit</p><div class="attraction-meta"><span class="meta-item">🚌 Bus 69 (20 Min)</span><span class="meta-item">⏱️ 2 Std</span><span class="meta-item">💰 200 SEK (~17€)</span></div></div>
+<div class="attraction-item"><strong>ABBA Museum</strong><p>Interaktives Museum der Pop-Legende</p><div class="attraction-meta"><span class="meta-item">🚇 25 Min</span><span class="meta-item">⏱️ 1,5 Std</span><span class="meta-item">💰 260 SEK (~22€)</span></div></div>
+<div class="attraction-item"><strong>Skansen (Freilichtmuseum)</strong><p>Historische Gebäude, Tiere, schwedische Kultur</p><div class="attraction-meta"><span class="meta-item">🚇 30 Min</span><span class="meta-item">⏱️ 3 Std</span><span class="meta-item">💰 220 SEK (~19€)</span></div></div>
 </div>
-</div>
-<div class="attraction-item">
-<strong>Vasa-Museum</strong>
-<p>Kriegsschiff aus 1628, besterhaltenes weltweit</p>
-<div class="attraction-meta">
-<span class="meta-item">🚌 Bus 69 (20 Min)</span>
-<span class="meta-item">⏱️ 2 Std</span>
-<span class="meta-item">💰 200 SEK (~17€)</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>ABBA Museum</strong>
-<p>Interaktives Museum der Pop-Legende</p>
-<div class="attraction-meta">
-<span class="meta-item">🚇 25 Min</span>
-<span class="meta-item">⏱️ 1,5 Std</span>
-<span class="meta-item">💰 260 SEK (~22€)</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Skansen (Freilichtmuseum)</strong>
-<p>Historische Gebäude, Tiere, schwedische Kultur</p>
-<div class="attraction-meta">
-<span class="meta-item">🚇 30 Min</span>
-<span class="meta-item">⏱️ 3 Std</span>
-<span class="meta-item">💰 220 SEK (~19€)</span>
-</div>
-</div>
-</div>
-
 <div class="card">
 <h3>🍽️ Restaurants & Cafés</h3>
-<div class="restaurant-item">
-<strong>Hermans Vegetariskt</strong><span class="price-badge">€</span>
-<p>Vegetarisches Buffet mit Meerblick</p>
-<small>~12€ • ⭐⭐⭐⭐</small>
+<div class="restaurant-item"><strong>Hermans Vegetariskt</strong><span class="price-badge">€</span><p>Vegetarisches Buffet mit Meerblick</p><small>~12€ • ⭐⭐⭐⭐</small></div>
+<div class="restaurant-item"><strong>Östermalms Saluhall</strong><span class="price-badge mid">€€</span><p>Markthalle mit vielen Food-Ständen</p><small>~20€ • ⭐⭐⭐⭐⭐</small></div>
+<div class="restaurant-item"><strong>Pelikan</strong><span class="price-badge mid">€€</span><p>Traditionell schwedisch seit 1733</p><small>~25€ • ⭐⭐⭐⭐</small></div>
 </div>
-<div class="restaurant-item">
-<strong>Östermalms Saluhall</strong><span class="price-badge mid">€€</span>
-<p>Markthalle mit vielen Food-Ständen</p>
-<small>~20€ • ⭐⭐⭐⭐⭐</small>
-</div>
-<div class="restaurant-item">
-<strong>Pelikan</strong><span class="price-badge mid">€€</span>
-<p>Traditionell schwedisch seit 1733</p>
-<small>~25€ • ⭐⭐⭐⭐</small>
-</div>
-</div>
-
 <div class="card">
 <h3>🚻 Öffentliche Toiletten</h3>
-<div class="wc-item">
-<strong>Stockholms Centralstation</strong>
-<p>📍 200m • 💰 10 SEK • <span class="wc-rating">⭐⭐⭐</span></p>
-<small>🕐 06:00-23:00</small>
+<div class="wc-item"><strong>Stockholms Centralstation</strong><p>📍 200m • 💰 10 SEK • <span class="wc-rating">⭐⭐⭐</span></p><small>🕐 06:00-23:00</small></div>
+<div class="wc-item"><strong>Åhléns City</strong><p>📍 T-Centralen • 💰 Kostenlos • <span class="wc-rating">⭐⭐</span></p><small>🕐 10:00-20:00</small></div>
 </div>
-<div class="wc-item">
-<strong>Åhléns City</strong>
-<p>📍 T-Centralen • 💰 Kostenlos • <span class="wc-rating">⭐⭐</span></p>
-<small>🕐 10:00-20:00</small>
-</div>
-</div>
-
 <div class="card">
 <h3>🗣️ Wichtige Phrasen (Schwedisch)</h3>
-<div class="phrase-item">
-<div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(hey)</div></div>
-<div class="phrase-foreign">Hej!</div>
+<div class="phrase-item"><div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(hey)</div></div><div class="phrase-foreign">Hej!</div></div>
+<div class="phrase-item"><div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(tack)</div></div><div class="phrase-foreign">Tack!</div></div>
+<div class="phrase-item"><div><div class="phrase-de">Wie viel kostet das?</div></div><div class="phrase-foreign">Hur mycket kostar det?</div></div>
+<div class="phrase-item"><div><div class="phrase-de">Ein Bier, bitte</div></div><div class="phrase-foreign">En öl, tack</div></div>
+<div class="phrase-item"><div><div class="phrase-de">Die Rechnung, bitte</div></div><div class="phrase-foreign">Notan, tack</div></div>
+<div class="phrase-item"><div><div class="phrase-de">Wo ist die Toilette?</div></div><div class="phrase-foreign">Var är toaletten?</div></div>
 </div>
-<div class="phrase-item">
-<div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(tack)</div></div>
-<div class="phrase-foreign">Tack!</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Wie viel kostet das?</div></div>
-<div class="phrase-foreign">Hur mycket kostar det?</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Ein Bier, bitte</div></div>
-<div class="phrase-foreign">En öl, tack</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Die Rechnung, bitte</div></div>
-<div class="phrase-foreign">Notan, tack</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Wo ist die Toilette?</div></div>
-<div class="phrase-foreign">Var är toaletten?</div>
-</div>
-</div>
-
-<div class="info-card">
-<h3>⏰ Rückkehr-Empfehlung</h3>
-<p>🚢 Abfahrt: 18:00 Uhr<br>
-⚠️ Spätestens zurück: 17:00 Uhr</p>
-</div>
+<div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 18:00 Uhr<br>⚠️ Spätestens zurück: 17:00 Uhr</p></div>
 </div>
 
 <!-- VISBY PAGE -->
 <div id="visbyPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🇸🇪</div>
-<h1>Visby (Gotland)</h1>
-<div class="subtitle">02. Juni • 10:00 - 19:00 Uhr</div>
-<div class="countdown" id="countdown-detail-visby" style="margin-top:10px">Lädt...</div>
-</div>
-
-<div class="card">
-<h3>🚶 Vom Terminal ins Zentrum</h3>
-<div class="route-step">
-<span class="step-number">1</span>
-<strong>Zu Fuß vom Terminal</strong><br>
-<small>1,2 km • 15 Min direkt ins Zentrum</small>
-</div>
-<div class="route-step">
-<span class="step-number">2</span>
-<strong>Stadtmauer & Altstadt</strong><br>
-<small>✅ Alles kompakt & fußläufig!</small>
-</div>
-<div class="info-card">
-💰 <strong>Keine Tickets nötig</strong> - alles zu Fuß!<br>
-🏰 <strong>UNESCO-Welterbe</strong> - mittelalterliche Hansestadt
-</div>
-</div>
-
-<div class="card">
-<h3>🏛️ Top-Sehenswürdigkeiten</h3>
-<div class="attraction-item">
-<strong>Ringmauer (Stadtmauer)</strong>
-<p>3,4 km erhaltene mittelalterliche Stadtmauer</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 Zentrum</span>
-<span class="meta-item">⏱️ 1-2 Std</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Domkirche St. Maria</strong>
-<p>Einzige erhaltene mittelalterliche Kirche Visbys</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 5 Min</span>
-<span class="meta-item">⏱️ 30 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Botanischer Garten</strong>
-<p>Schöner Park mit Ruinen</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 10 Min</span>
-<span class="meta-item">⏱️ 1 Std</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-</div>
-
-<div class="card">
-<h3>🍽️ Restaurants & Cafés</h3>
-<div class="restaurant-item">
-<strong>Bakfickan</strong><span class="price-badge mid">€€</span>
-<p>Bistro mit lokalen Spezialitäten</p>
-<small>~20€ • ⭐⭐⭐⭐</small>
-</div>
-<div class="restaurant-item">
-<strong>Surfers</strong><span class="price-badge">€</span>
-<p>Asia-Streetfood, sehr beliebt</p>
-<small>~12€ • ⭐⭐⭐⭐⭐</small>
-</div>
-</div>
-
-<div class="card">
-<h3>🚻 Öffentliche Toiletten</h3>
-<div class="wc-item">
-<strong>Almedalen (am Hafen)</strong>
-<p>📍 200m vom Terminal • 💰 10 SEK • <span class="wc-rating">⭐⭐⭐</span></p>
-</div>
-</div>
-
-<div class="card">
-<h3>🗣️ Wichtige Phrasen (Schwedisch)</h3>
-<div class="phrase-item">
-<div class="phrase-de">Hallo</div>
-<div class="phrase-foreign">Hej!</div>
-</div>
-<div class="phrase-item">
-<div class="phrase-de">Danke</div>
-<div class="phrase-foreign">Tack!</div>
-</div>
-<div class="phrase-item">
-<div class="phrase-de">Sehr schön hier!</div>
-<div class="phrase-foreign">Mycket vackert här!</div>
-</div>
-</div>
-
-<div class="info-card">
-<h3>⏰ Rückkehr-Empfehlung</h3>
-<p>🚢 Abfahrt: 19:00 Uhr<br>
-⚠️ Spätestens zurück: 18:15 Uhr</p>
-</div>
+<div class="header"><div class="ship-icon">🇸🇪</div><h1>Visby (Gotland)</h1><div class="subtitle">02. Juni • 10:00 - 19:00 Uhr</div><div class="countdown" id="countdown-detail-visby" style="margin-top:10px">Lädt...</div></div>
+<div class="card"><h3>🚶 Vom Terminal ins Zentrum</h3><div class="route-step"><span class="step-number">1</span><strong>Zu Fuß vom Terminal</strong><br><small>1,2 km • 15 Min direkt ins Zentrum</small></div><div class="route-step"><span class="step-number">2</span><strong>Stadtmauer & Altstadt</strong><br><small>✅ Alles kompakt & fußläufig!</small></div><div class="info-card">💰 <strong>Keine Tickets nötig</strong> - alles zu Fuß!<br>🏰 <strong>UNESCO-Welterbe</strong> - mittelalterliche Hansestadt</div></div>
+<div class="card"><h3>🏛️ Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Ringmauer (Stadtmauer)</strong><p>3,4 km erhaltene mittelalterliche Stadtmauer</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 1-2 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Domkirche St. Maria</strong><p>Einzige erhaltene mittelalterliche Kirche Visbys</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Botanischer Garten</strong><p>Schöner Park mit Ruinen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 1 Std</span><span class="meta-item">💰 Kostenlos</span></div></div></div>
+<div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Bakfickan</strong><span class="price-badge mid">€€</span><p>Bistro mit lokalen Spezialitäten</p><small>~20€ • ⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Surfers</strong><span class="price-badge">€</span><p>Asia-Streetfood, sehr beliebt</p><small>~12€ • ⭐⭐⭐⭐⭐</small></div></div>
+<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Almedalen (am Hafen)</strong><p>📍 200m vom Terminal • 💰 10 SEK • <span class="wc-rating">⭐⭐⭐</span></p></div></div>
+<div class="card"><h3>🗣️ Wichtige Phrasen (Schwedisch)</h3><div class="phrase-item"><div class="phrase-de">Hallo</div><div class="phrase-foreign">Hej!</div></div><div class="phrase-item"><div class="phrase-de">Danke</div><div class="phrase-foreign">Tack!</div></div><div class="phrase-item"><div class="phrase-de">Sehr schön hier!</div><div class="phrase-foreign">Mycket vackert här!</div></div></div>
+<div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 19:00 Uhr<br>⚠️ Spätestens zurück: 18:15 Uhr</p></div>
 </div>
 
 <!-- GDANSK PAGE -->
 <div id="gdanskPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🇵🇱</div>
-<h1>Gdańsk/Gdingen</h1>
-<div class="subtitle">03. Juni • 10:00 - 20:00 Uhr</div>
-<div class="countdown" id="countdown-detail-gdansk" style="margin-top:10px">Lädt...</div>
-</div>
-
-<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d">
-<h3>⚠️ WICHTIG!</h3>
-<p>Terminal ist in <strong>Gdynia (Gdingen)</strong>!<br>
-Altstadt ist in <strong>Gdańsk</strong> (20 km entfernt)</p>
-</div>
-
-<div class="card">
-<h3>🚆 Von Gdynia → Gdańsk</h3>
-<div class="route-step">
-<span class="step-number">1</span>
-<strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br>
-<small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small>
-</div>
-<div class="route-step">
-<span class="step-number">2</span>
-<strong>SKM-Zug (S-Bahn) → Gdańsk Główny</strong><br>
-<small>20-30 Min • Alle 10-15 Min</small>
-</div>
-<div class="route-step">
-<span class="step-number">3</span>
-<strong>10 Min zu Fuß → Rechtstadt (Altstadt)</strong><br>
-<small>✅ Angekommen!</small>
-</div>
-<div class="info-card">
-💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>
-🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>
-⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal
-</div>
-</div>
-
-<div class="card">
-<h3>🏛️ Gdańsk Top-Sehenswürdigkeiten</h3>
-<div class="attraction-item">
-<strong>Rechtstadt (Główne Miasto)</strong>
-<p>Historische Altstadt mit bunten Häusern</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 Zentrum</span>
-<span class="meta-item">⏱️ 2-3 Std</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Marienkirche</strong>
-<p>Größte Backsteinkirche der Welt</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 5 Min</span>
-<span class="meta-item">⏱️ 45 Min</span>
-<span class="meta-item">💰 5 PLN (~1€)</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Krantor (Żuraw)</strong>
-<p>Mittelalterlicher Hafenkran, Wahrzeichen</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 10 Min</span>
-<span class="meta-item">⏱️ 30 Min</span>
-<span class="meta-item">💰 10 PLN (~2€)</span>
-</div>
-</div>
-</div>
-
-<div class="card">
-<h3>🍽️ Restaurants & Cafés</h3>
-<div class="restaurant-item">
-<strong>Pierogarnia Mandu</strong><span class="price-badge">€</span>
-<p>Polnische Pierogi (Teigtaschen)</p>
-<small>~8€ • ⭐⭐⭐⭐⭐</small>
-</div>
-<div class="restaurant-item">
-<strong>Gdański Bowke</strong><span class="price-badge mid">€€</span>
-<p>Traditionell polnische Küche</p>
-<small>~15€ • ⭐⭐⭐⭐</small>
-</div>
-</div>
-
-<div class="card">
-<h3>🚻 Öffentliche Toiletten</h3>
-<div class="wc-item">
-<strong>Gdańsk Główny (Bahnhof)</strong>
-<p>📍 Am Bahnhof • 💰 2 PLN • <span class="wc-rating">⭐⭐</span></p>
-</div>
-</div>
-
-<div class="card">
-<h3>🗣️ Wichtige Phrasen (Polnisch)</h3>
-<div class="phrase-item">
-<div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(chen dob-ry)</div></div>
-<div class="phrase-foreign">Dzień dobry</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(jen-ku-ye)</div></div>
-<div class="phrase-foreign">Dziękuję</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Wie viel?</div><div class="phrase-pronounce">(ee-le)</div></div>
-<div class="phrase-foreign">Ile?</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Ein Bier, bitte</div></div>
-<div class="phrase-foreign">Jedno piwo, proszę</div>
-</div>
-</div>
-
-<div class="info-card">
-<h3>⏰ Rückkehr-Empfehlung</h3>
-<p>🚢 Abfahrt: 20:00 Uhr<br>
-🚆 Letzter Zug: ~19:00<br>
-⚠️ Spätestens 18:30 losfahren</p>
-</div>
+<div class="header"><div class="ship-icon">🇵🇱</div><h1>Gdańsk/Gdingen</h1><div class="subtitle">03. Juni • 10:00 - 20:00 Uhr</div><div class="countdown" id="countdown-detail-gdansk" style="margin-top:10px">Lädt...</div></div>
+<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d"><h3>⚠️ WICHTIG!</h3><p>Terminal ist in <strong>Gdynia (Gdingen)</strong>!<br>Altstadt ist in <strong>Gdańsk</strong> (20 km entfernt)</p></div>
+<div class="card"><h3>🚆 Von Gdynia → Gdańsk</h3><div class="route-step"><span class="step-number">1</span><strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br><small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small></div><div class="route-step"><span class="step-number">2</span><strong>SKM-Zug (S-Bahn) → Gdańsk Główny</strong><br><small>20-30 Min • Alle 10-15 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>10 Min zu Fuß → Rechtstadt (Altstadt)</strong><br><small>✅ Angekommen!</small></div><div class="info-card">💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal</div></div>
+<div class="card"><h3>🏛️ Gdańsk Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Rechtstadt (Główne Miasto)</strong><p>Historische Altstadt mit bunten Häusern</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Marienkirche</strong><p>Größte Backsteinkirche der Welt</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 45 Min</span><span class="meta-item">💰 5 PLN (~1€)</span></div></div><div class="attraction-item"><strong>Krantor (Żuraw)</strong><p>Mittelalterlicher Hafenkran, Wahrzeichen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 10 PLN (~2€)</span></div></div></div>
+<div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Pierogarnia Mandu</strong><span class="price-badge">€</span><p>Polnische Pierogi (Teigtaschen)</p><small>~8€ • ⭐⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Gdański Bowke</strong><span class="price-badge mid">€€</span><p>Traditionell polnische Küche</p><small>~15€ • ⭐⭐⭐⭐</small></div></div>
+<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Gdańsk Główny (Bahnhof)</strong><p>📍 Am Bahnhof • 💰 2 PLN • <span class="wc-rating">⭐⭐</span></p></div></div>
+<div class="card"><h3>🗣️ Wichtige Phrasen (Polnisch)</h3><div class="phrase-item"><div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(chen dob-ry)</div></div><div class="phrase-foreign">Dzień dobry</div></div><div class="phrase-item"><div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(jen-ku-ye)</div></div><div class="phrase-foreign">Dziękuję</div></div><div class="phrase-item"><div><div class="phrase-de">Wie viel?</div><div class="phrase-pronounce">(ee-le)</div></div><div class="phrase-foreign">Ile?</div></div><div class="phrase-item"><div><div class="phrase-de">Ein Bier, bitte</div></div><div class="phrase-foreign">Jedno piwo, proszę</div></div></div>
+<div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 20:00 Uhr<br>🚆 Letzter Zug: ~19:00<br>⚠️ Spätestens 18:30 losfahren</p></div>
 </div>
 
 <!-- KARLSKRONA PAGE -->
 <div id="karlskronaPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🇸🇪</div>
-<h1>Karlskrona</h1>
-<div class="subtitle">04. Juni • 08:00 - 18:00 Uhr</div>
-<div class="countdown" id="countdown-detail-karlskrona" style="margin-top:10px">Lädt...</div>
-</div>
-
-<div class="card">
-<h3>🚶 Vom Terminal ins Zentrum</h3>
-<div class="route-step">
-<span class="step-number">1</span>
-<strong>Zu Fuß vom Terminal</strong><br>
-<small>1 km • 10-12 Min direkt ins Zentrum</small>
-</div>
-<div class="route-step">
-<span class="step-number">2</span>
-<strong>Stortorget (Hauptplatz)</strong><br>
-<small>✅ Zentrum erreicht!</small>
-</div>
-<div class="info-card">
-💰 <strong>Keine Tickets nötig</strong> - alles fußläufig!<br>
-⚓ <strong>UNESCO-Welterbe</strong> - Marinestadt
-</div>
-</div>
-
-<div class="card">
-<h3>🏛️ Top-Sehenswürdigkeiten</h3>
-<div class="attraction-item">
-<strong>Marinemuseum</strong>
-<p>Schwedens größtes Marinemuseum</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 15 Min</span>
-<span class="meta-item">⏱️ 2 Std</span>
-<span class="meta-item">💰 Kostenlos!</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Stortorget (Hauptplatz)</strong>
-<p>Barocker Platz mit zwei Kirchen</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 Zentrum</span>
-<span class="meta-item">⏱️ 30 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>Fredrikskyrkan (Kirche)</strong>
-<p>Imposante barocke Kirche von 1744</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 Am Stortorget</span>
-<span class="meta-item">⏱️ 20 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-</div>
-
-<div class="card">
-<h3>🍽️ Restaurants & Cafés</h3>
-<div class="restaurant-item">
-<strong>Glasskiosken</strong><span class="price-badge">€</span>
-<p>Eis & Snacks am Hafen</p>
-<small>~5€ • ⭐⭐⭐⭐</small>
-</div>
-<div class="restaurant-item">
-<strong>Brödernas</strong><span class="price-badge mid">€€</span>
-<p>Bistro mit lokalen Spezialitäten</p>
-<small>~18€ • ⭐⭐⭐⭐</small>
-</div>
-</div>
-
-<div class="card">
-<h3>🚻 Öffentliche Toiletten</h3>
-<div class="wc-item">
-<strong>Marinemuseum</strong>
-<p>📍 Am Museum • 💰 Kostenlos • <span class="wc-rating">⭐⭐⭐</span></p>
-</div>
-</div>
-
-<div class="card">
-<h3>🗣️ Wichtige Phrasen (Schwedisch)</h3>
-<div class="phrase-item">
-<div class="phrase-de">Hallo</div>
-<div class="phrase-foreign">Hej!</div>
-</div>
-<div class="phrase-item">
-<div class="phrase-de">Danke</div>
-<div class="phrase-foreign">Tack!</div>
-</div>
-</div>
-
-<div class="info-card">
-<h3>⏰ Rückkehr-Empfehlung</h3>
-<p>🚢 Abfahrt: 18:00 Uhr<br>
-⚠️ Spätestens zurück: 17:15 Uhr</p>
-</div>
+<div class="header"><div class="ship-icon">🇸🇪</div><h1>Karlskrona</h1><div class="subtitle">04. Juni • 08:00 - 18:00 Uhr</div><div class="countdown" id="countdown-detail-karlskrona" style="margin-top:10px">Lädt...</div></div>
+<div class="card"><h3>🚶 Vom Terminal ins Zentrum</h3><div class="route-step"><span class="step-number">1</span><strong>Zu Fuß vom Terminal</strong><br><small>1 km • 10-12 Min direkt ins Zentrum</small></div><div class="route-step"><span class="step-number">2</span><strong>Stortorget (Hauptplatz)</strong><br><small>✅ Zentrum erreicht!</small></div><div class="info-card">💰 <strong>Keine Tickets nötig</strong> - alles fußläufig!<br>⚓ <strong>UNESCO-Welterbe</strong> - Marinestadt</div></div>
+<div class="card"><h3>🏛️ Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Marinemuseum</strong><p>Schwedens größtes Marinemuseum</p><div class="attraction-meta"><span class="meta-item">🚶 15 Min</span><span class="meta-item">⏱️ 2 Std</span><span class="meta-item">💰 Kostenlos!</span></div></div><div class="attraction-item"><strong>Stortorget (Hauptplatz)</strong><p>Barocker Platz mit zwei Kirchen</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Fredrikskyrkan (Kirche)</strong><p>Imposante barocke Kirche von 1744</p><div class="attraction-meta"><span class="meta-item">🚶 Am Stortorget</span><span class="meta-item">⏱️ 20 Min</span><span class="meta-item">💰 Kostenlos</span></div></div></div>
+<div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Glasskiosken</strong><span class="price-badge">€</span><p>Eis & Snacks am Hafen</p><small>~5€ • ⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Brödernas</strong><span class="price-badge mid">€€</span><p>Bistro mit lokalen Spezialitäten</p><small>~18€ • ⭐⭐⭐⭐</small></div></div>
+<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Marinemuseum</strong><p>📍 Am Museum • 💰 Kostenlos • <span class="wc-rating">⭐⭐⭐</span></p></div></div>
+<div class="card"><h3>🗣️ Wichtige Phrasen (Schwedisch)</h3><div class="phrase-item"><div class="phrase-de">Hallo</div><div class="phrase-foreign">Hej!</div></div><div class="phrase-item"><div class="phrase-de">Danke</div><div class="phrase-foreign">Tack!</div></div></div>
+<div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 18:00 Uhr<br>⚠️ Spätestens zurück: 17:15 Uhr</p></div>
 </div>
 
 <!-- COPENHAGEN PAGE -->
 <div id="copenhagenPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🇩🇰</div>
-<h1>Kopenhagen</h1>
-<div class="subtitle">05. Juni • 14:00 - 21:00 Uhr</div>
-<div class="countdown" id="countdown-detail-copenhagen" style="margin-top:10px">Lädt...</div>
+<div class="header"><div class="ship-icon">🇩🇰</div><h1>Kopenhagen</h1><div class="subtitle">05. Juni • 14:00 - 21:00 Uhr</div><div class="countdown" id="countdown-detail-copenhagen" style="margin-top:10px">Lädt...</div></div>
+<div class="info-card" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f);border-color:#ff6b6b"><h3>⚠️ NUR 7 STUNDEN!</h3><p>Kurze Liegezeit - Express-Planung nötig!</p></div>
+<div class="card"><h3>🚇 Vom Terminal (Oceankaj)</h3><div class="route-step"><span class="step-number">1</span><strong>Kostenloser Shuttle → Østerport</strong><br><small>10 Min vom Terminal zur S-Bahn</small></div><div class="route-step"><span class="step-number">2</span><strong>S-Bahn → Nørreport (2 Stops)</strong><br><small>4 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>Metro M1/M2 → Kongens Nytorv</strong><br><small>2 Min • ✅ Nyhavn erreicht!</small></div><div class="info-card">💰 <strong>City Pass Small:</strong> 80 DKK (~11€) • 24h<br>📱 <strong>App:</strong> "DOT Tickets"<br>⏱️ <strong>Gesamt:</strong> ~20 Min</div></div>
+<div class="card"><h3>🏛️ Express-Route (5 Std)</h3><div class="attraction-item"><strong>1. Nyhavn (Bunte Häuser)</strong><p>Fotomotiv #1, Cafés am Kanal</p><div class="attraction-meta"><span class="meta-item">⏱️ 30-45 Min</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>2. Amalienborg (Schloss)</strong><p>Wohnsitz der Königsfamilie</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 20 Min</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>3. Kleine Meerjungfrau</strong><p>Berühmte Statue am Hafen</p><div class="attraction-meta"><span class="meta-item">🚶 15 Min</span><span class="meta-item">⏱️ 15 Min</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>4. Strøget (Shopping)</strong><p>Längste Fußgängerzone Europas</p><div class="attraction-meta"><span class="meta-item">🚇 Zurück</span><span class="meta-item">⏱️ 1-2 Std</span></div></div></div>
+<div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Nyhavn Cafés</strong><span class="price-badge mid">€€</span><p>Viele Optionen direkt am Wasser</p><small>~15€ • ⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Torvehallerne (Markthalle)</strong><span class="price-badge mid">€€</span><p>Food-Market mit vielen Ständen</p><small>~12€ • ⭐⭐⭐⭐⭐</small></div></div>
+<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Magasin du Nord (Kaufhaus)</strong><p>📍 Bei Kongens Nytorv • 💰 Kostenlos • <span class="wc-rating">⭐⭐⭐</span></p></div></div>
+<div class="card"><h3>🗣️ Wichtige Phrasen (Dänisch)</h3><div class="phrase-item"><div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(high)</div></div><div class="phrase-foreign">Hej!</div></div><div class="phrase-item"><div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(tack)</div></div><div class="phrase-foreign">Tak!</div></div><div class="phrase-item"><div><div class="phrase-de">Wie viel?</div></div><div class="phrase-foreign">Hvor meget?</div></div><div class="phrase-item"><div><div class="phrase-de">Ein Bier, bitte</div></div><div class="phrase-foreign">En øl, tak</div></div></div>
+<div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 21:00 Uhr<br>🚇 Spätestens 20:00 losfahren!<br>💡 Besser: 19:30 zurück (Puffer!)</p></div>
 </div>
-
-<div class="info-card" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f);border-color:#ff6b6b">
-<h3>⚠️ NUR 7 STUNDEN!</h3>
-<p>Kurze Liegezeit - Express-Planung nötig!</p>
-</div>
-
-<div class="card">
-<h3>🚇 Vom Terminal (Oceankaj)</h3>
-<div class="route-step">
-<span class="step-number">1</span>
-<strong>Kostenloser Shuttle → Østerport</strong><br>
-<small>10 Min vom Terminal zur S-Bahn</small>
-</div>
-<div class="route-step">
-<span class="step-number">2</span>
-<strong>S-Bahn → Nørreport (2 Stops)</strong><br>
-<small>4 Min</small>
-</div>
-<div class="route-step">
-<span class="step-number">3</span>
-<strong>Metro M1/M2 → Kongens Nytorv</strong><br>
-<small>2 Min • ✅ Nyhavn erreicht!</small>
-</div>
-<div class="info-card">
-💰 <strong>City Pass Small:</strong> 80 DKK (~11€) • 24h<br>
-📱 <strong>App:</strong> "DOT Tickets"<br>
-⏱️ <strong>Gesamt:</strong> ~20 Min
-</div>
-</div>
-
-<div class="card">
-<h3>🏛️ Express-Route (5 Std)</h3>
-<div class="attraction-item">
-<strong>1. Nyhavn (Bunte Häuser)</strong>
-<p>Fotomotiv #1, Cafés am Kanal</p>
-<div class="attraction-meta">
-<span class="meta-item">⏱️ 30-45 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>2. Amalienborg (Schloss)</strong>
-<p>Wohnsitz der Königsfamilie</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 10 Min</span>
-<span class="meta-item">⏱️ 20 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>3. Kleine Meerjungfrau</strong>
-<p>Berühmte Statue am Hafen</p>
-<div class="attraction-meta">
-<span class="meta-item">🚶 15 Min</span>
-<span class="meta-item">⏱️ 15 Min</span>
-<span class="meta-item">💰 Kostenlos</span>
-</div>
-</div>
-<div class="attraction-item">
-<strong>4. Strøget (Shopping)</strong>
-<p>Längste Fußgängerzone Europas</p>
-<div class="attraction-meta">
-<span class="meta-item">🚇 Zurück</span>
-<span class="meta-item">⏱️ 1-2 Std</span>
-</div>
-</div>
-</div>
-
-<div class="card">
-<h3>🍽️ Restaurants & Cafés</h3>
-<div class="restaurant-item">
-<strong>Nyhavn Cafés</strong><span class="price-badge mid">€€</span>
-<p>Viele Optionen direkt am Wasser</p>
-<small>~15€ • ⭐⭐⭐⭐</small>
-</div>
-<div class="restaurant-item">
-<strong>Torvehallerne (Markthalle)</strong><span class="price-badge mid">€€</span>
-<p>Food-Market mit vielen Ständen</p>
-<small>~12€ • ⭐⭐⭐⭐⭐</small>
-</div>
-</div>
-
-<div class="card">
-<h3>🚻 Öffentliche Toiletten</h3>
-<div class="wc-item">
-<strong>Magasin du Nord (Kaufhaus)</strong>
-<p>📍 Bei Kongens Nytorv • 💰 Kostenlos • <span class="wc-rating">⭐⭐⭐</span></p>
-</div>
-</div>
-
-<div class="card">
-<h3>🗣️ Wichtige Phrasen (Dänisch)</h3>
-<div class="phrase-item">
-<div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(high)</div></div>
-<div class="phrase-foreign">Hej!</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(tack)</div></div>
-<div class="phrase-foreign">Tak!</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Wie viel?</div></div>
-<div class="phrase-foreign">Hvor meget?</div>
-</div>
-<div class="phrase-item">
-<div><div class="phrase-de">Ein Bier, bitte</div></div>
-<div class="phrase-foreign">En øl, tak</div>
-</div>
-</div>
-
-<div class="info-card">
-<h3>⏰ Rückkehr-Empfehlung</h3>
-<p>🚢 Abfahrt: 21:00 Uhr<br>
-🚇 Spätestens 20:00 losfahren!<br>
-💡 Besser: 19:30 zurück (Puffer!)</p>
-</div>
-</div>
-
- <!-- CURRENCY TOOL -->
+<!-- CURRENCY TOOL -->
 <div id="currencyPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">💱</div>
-<h1>Währungsrechner</h1>
-<div class="subtitle">Live-Kurse für alle Häfen</div>
-</div>
-
+<div class="header"><div class="ship-icon">💱</div><h1>Währungsrechner</h1><div class="subtitle">Live-Kurse für alle Häfen</div></div>
 <div class="tab-buttons">
 <button class="tab-btn active" onclick="APP.switchCurrency('sek',event)">SEK → EUR</button>
 <button class="tab-btn" onclick="APP.switchCurrency('dkk',event)">DKK → EUR</button>
 <button class="tab-btn" onclick="APP.switchCurrency('pln',event)">PLN → EUR</button>
 </div>
-
 <div class="card">
-<div id="sekTab" class="tab-content active">
-<h3>🇸🇪 Schwedische Kronen (SEK)</h3>
-<input type="number" class="currency-input" id="sekInput" value="100" oninput="APP.convertCurrency('sek')">
-<div class="currency-result">
-<div>≈</div>
-<div class="big" id="sekResult">8,70 €</div>
+<div id="sekTab" class="tab-content active"><h3>🇸🇪 Schwedische Kronen (SEK)</h3><input type="number" class="currency-input" id="sekInput" value="100" oninput="APP.convertCurrency('sek')"><div class="currency-result"><div>≈</div><div class="big" id="sekResult">8,70 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 10 SEK ≈ 1 EUR<br>📍 <strong>Für:</strong> Stockholm, Visby, Karlskrona</div></div>
+<div id="dkkTab" class="tab-content"><h3>🇩🇰 Dänische Kronen (DKK)</h3><input type="number" class="currency-input" id="dkkInput" value="100" oninput="APP.convertCurrency('dkk')"><div class="currency-result"><div>≈</div><div class="big" id="dkkResult">13,40 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 7,5 DKK ≈ 1 EUR<br>📍 <strong>Für:</strong> Kopenhagen</div></div>
+<div id="plnTab" class="tab-content"><h3>🇵🇱 Polnische Zloty (PLN)</h3><input type="number" class="currency-input" id="plnInput" value="100" oninput="APP.convertCurrency('pln')"><div class="currency-result"><div>≈</div><div class="big" id="plnResult">23,20 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 4,3 PLN ≈ 1 EUR<br>📍 <strong>Für:</strong> Gdańsk/Gdingen</div></div>
 </div>
-<div class="info-card">
-💡 <strong>Faustregel:</strong> 10 SEK ≈ 1 EUR<br>
-📍 <strong>Für:</strong> Stockholm, Visby, Karlskrona
-</div>
-</div>
-
-<div id="dkkTab" class="tab-content">
-<h3>🇩🇰 Dänische Kronen (DKK)</h3>
-<input type="number" class="currency-input" id="dkkInput" value="100" oninput="APP.convertCurrency('dkk')">
-<div class="currency-result">
-<div>≈</div>
-<div class="big" id="dkkResult">13,40 €</div>
-</div>
-<div class="info-card">
-💡 <strong>Faustregel:</strong> 7,5 DKK ≈ 1 EUR<br>
-📍 <strong>Für:</strong> Kopenhagen
-</div>
-</div>
-
-<div id="plnTab" class="tab-content">
-<h3>🇵🇱 Polnische Zloty (PLN)</h3>
-<input type="number" class="currency-input" id="plnInput" value="100" oninput="APP.convertCurrency('pln')">
-<div class="currency-result">
-<div>≈</div>
-<div class="big" id="plnResult">23,20 €</div>
-</div>
-<div class="info-card">
-💡 <strong>Faustregel:</strong> 4,3 PLN ≈ 1 EUR<br>
-📍 <strong>Für:</strong> Gdańsk/Gdingen
-</div>
-</div>
-</div>
-
-<div class="card">
-<h3>💳 Bezahltipps</h3>
-<p>✅ <strong>Kreditkarte</strong> überall akzeptiert<br>
-✅ <strong>Kontaktlos</strong> sehr verbreitet<br>
-⚠️ <strong>Bargeld:</strong> Zunehmend seltener<br>
-💰 <strong>Geldautomaten:</strong> An Bahnhöfen<br>
-❌ <strong>Nicht:</strong> Am Schiff wechseln!</p>
-</div>
+<div class="card"><h3>💳 Bezahltipps</h3><p>✅ <strong>Kreditkarte</strong> überall akzeptiert<br>✅ <strong>Kontaktlos</strong> sehr verbreitet<br>⚠️ <strong>Bargeld:</strong> Zunehmend seltener<br>💰 <strong>Geldautomaten:</strong> An Bahnhöfen<br>❌ <strong>Nicht:</strong> Am Schiff wechseln!</p></div>
 </div>
 
 <!-- WEATHER TOOL -->
 <div id="weatherPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🌦️</div>
-<h1>Wetter-Vorhersage</h1>
-<div class="subtitle">7-Tage-Prognose für alle Häfen</div>
-</div>
-
+<div class="header"><div class="ship-icon">🌦️</div><h1>Wetter-Vorhersage</h1><div class="subtitle">7-Tage-Prognose für alle Häfen</div></div>
 <div class="tab-buttons">
 <button class="tab-btn active" onclick="APP.loadWeather('stockholm',event)">🇸🇪 Stockholm</button>
 <button class="tab-btn" onclick="APP.loadWeather('visby',event)">🇸🇪 Visby</button>
@@ -876,119 +332,79 @@ Altstadt ist in <strong>Gdańsk</strong> (20 km entfernt)</p>
 <button class="tab-btn" onclick="APP.loadWeather('karlskrona',event)">🇸🇪 Karlskrona</button>
 <button class="tab-btn" onclick="APP.loadWeather('copenhagen',event)">🇩🇰 Kopenhagen</button>
 </div>
-
-<div id="weatherContent">
-<div class="card">
-<h3>🌦️ Lädt Wetter...</h3>
-</div>
-</div>
+<div id="weatherContent"><div class="card"><h3>🌦️ Lädt Wetter...</h3></div></div>
 </div>
 
 <!-- WC FINDER TOOL -->
 <div id="wcPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🚻</div>
-<h1>WC-Finder</h1>
-<div class="subtitle">Toiletten in allen Häfen</div>
-</div>
+<div class="header"><div class="ship-icon">🚻</div><h1>WC-Finder</h1><div class="subtitle">Nächste Toiletten finden</div></div>
 <div class="card">
-<h3>🚧 GPS-Suche in Entwicklung</h3>
-<p>WC-Finder mit Live-Navigation kommt noch!</p>
-<p style="margin-top:15px">Nutze vorerst die WC-Listen in den Hafen-Seiten!</p>
+<h3>📍 Standort-basierte Suche</h3>
+<button class="quick-btn wc" style="width:100%" onclick="APP.findNearbyWCs()">🔍 Nächste WCs finden (GPS)</button>
+<div id="wcSearchStatus" style="margin-top:15px;text-align:center;color:#666"></div>
+</div>
+<div id="wcResults"></div>
+<div class="card">
+<h3>🏙️ WCs nach Hafen</h3>
+<div class="tab-buttons">
+<button class="tab-btn active" onclick="APP.showWCsByHarbor('stockholm',event)">Stockholm</button>
+<button class="tab-btn" onclick="APP.showWCsByHarbor('visby',event)">Visby</button>
+<button class="tab-btn" onclick="APP.showWCsByHarbor('gdansk',event)">Gdańsk</button>
+<button class="tab-btn" onclick="APP.showWCsByHarbor('karlskrona',event)">Karlskrona</button>
+<button class="tab-btn" onclick="APP.showWCsByHarbor('copenhagen',event)">Kopenhagen</button>
+</div>
+<div id="wcByHarborContent"></div>
 </div>
 </div>
 
 <!-- TRANSLATOR TOOL -->
 <div id="translatorPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">🎤</div>
-<h1>Live-Übersetzer</h1>
-<div class="subtitle">Mikrofon-Übersetzung</div>
-</div>
+<div class="header"><div class="ship-icon">🎤</div><h1>Live-Übersetzer</h1><div class="subtitle">Spracherkennung & Übersetzung</div></div>
+
 <div class="card">
-<h3>🚧 In Entwicklung</h3>
-<p>Spracheingabe wird noch implementiert!</p>
-<p style="margin-top:15px">Nutze vorerst die Phrasen in den Hafen-Seiten!</p>
+<h3>🌐 Sprache wählen</h3>
+<div class="lang-selector">
+<button class="lang-btn active" onclick="APP.selectLanguage('sv',event)">🇸🇪 Schwedisch</button>
+<button class="lang-btn" onclick="APP.selectLanguage('da',event)">🇩🇰 Dänisch</button>
+<button class="lang-btn" onclick="APP.selectLanguage('pl',event)">🇵🇱 Polnisch</button>
+</div>
+</div>
+
+<div class="card">
+<h3>🎤 Mikrofon-Übersetzung</h3>
+<p style="text-align:center;color:#666;margin-bottom:15px">Tippe & halte das Mikrofon, dann sprich!</p>
+<div style="text-align:center">
+<button class="mic-btn" id="micBtn" onmousedown="APP.startListening()" onmouseup="APP.stopListening()" ontouchstart="APP.startListening()" ontouchend="APP.stopListening()">🎤</button>
+</div>
+<div id="listeningStatus" style="text-align:center;color:#666;margin-top:10px"></div>
+</div>
+
+<div class="card">
+<h3>📝 Oder Text eingeben</h3>
+<input type="text" class="search-input" id="translatorInput" placeholder="Text zum Übersetzen eingeben..." onkeyup="if(event.key==='Enter')APP.translateText()">
+<button class="quick-btn translator" style="width:100%" onclick="APP.translateText()">🔄 Übersetzen</button>
+</div>
+
+<div id="translationResult"></div>
+
+<div class="card">
+<h3>⭐ Schnell-Phrasen</h3>
+<div id="quickPhrases"></div>
 </div>
 </div>
 
 <!-- ADMIN PANEL -->
 <div id="adminPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header">
-<div class="ship-icon">⚙️</div>
-<h1>Zeiten anpassen</h1>
-<div class="subtitle">Ankunfts- und Abfahrtszeiten ändern</div>
-</div>
-
-<div class="info-card">
-<h3>💡 Hinweis</h3>
-<p>Änderungen werden nur auf diesem Gerät gespeichert.<br>
-Bei Verspätungen hier die neuen Zeiten eingeben!</p>
-</div>
-
-<div class="card">
-<h3>🇸🇪 Stockholm</h3>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label>
-<input type="datetime-local" id="stockholm-arrival" class="currency-input">
-</div>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label>
-<input type="datetime-local" id="stockholm-departure" class="currency-input">
-</div>
-</div>
-
-<div class="card">
-<h3>🇸🇪 Visby</h3>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label>
-<input type="datetime-local" id="visby-arrival" class="currency-input">
-</div>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label>
-<input type="datetime-local" id="visby-departure" class="currency-input">
-</div>
-</div>
-
-<div class="card">
-<h3>🇵🇱 Gdańsk</h3>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label>
-<input type="datetime-local" id="gdansk-arrival" class="currency-input">
-</div>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label>
-<input type="datetime-local" id="gdansk-departure" class="currency-input">
-</div>
-</div>
-
-<div class="card">
-<h3>🇸🇪 Karlskrona</h3>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label>
-<input type="datetime-local" id="karlskrona-arrival" class="currency-input">
-</div>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label>
-<input type="datetime-local" id="karlskrona-departure" class="currency-input">
-</div>
-</div>
-
-<div class="card">
-<h3>🇩🇰 Kopenhagen</h3>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label>
-<input type="datetime-local" id="copenhagen-arrival" class="currency-input">
-</div>
-<div style="margin:10px 0">
-<label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label>
-<input type="datetime-local" id="copenhagen-departure" class="currency-input">
-</div>
-</div>
-
+<div class="header"><div class="ship-icon">⚙️</div><h1>Zeiten anpassen</h1><div class="subtitle">Ankunfts- und Abfahrtszeiten ändern</div></div>
+<div class="info-card"><h3>💡 Hinweis</h3><p>Änderungen werden nur auf diesem Gerät gespeichert.<br>Bei Verspätungen hier die neuen Zeiten eingeben!</p></div>
+<div class="card"><h3>🇸🇪 Stockholm</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="stockholm-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="stockholm-departure" class="currency-input"></div></div>
+<div class="card"><h3>🇸🇪 Visby</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="visby-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="visby-departure" class="currency-input"></div></div>
+<div class="card"><h3>🇵🇱 Gdańsk</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="gdansk-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="gdansk-departure" class="currency-input"></div></div>
+<div class="card"><h3>🇸🇪 Karlskrona</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="karlskrona-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="karlskrona-departure" class="currency-input"></div></div>
+<div class="card"><h3>🇩🇰 Kopenhagen</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="copenhagen-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="copenhagen-departure" class="currency-input"></div></div>
 <div class="card">
 <button class="quick-btn" style="width:100%;background:linear-gradient(135deg,#00cc66,#00994d)" onclick="APP.saveSchedule()">✅ Zeiten speichern</button>
 <button class="quick-btn" style="width:100%;background:linear-gradient(135deg,#ff6b6b,#ee5a6f);margin-top:10px" onclick="APP.resetSchedule()">🔄 Auf Standard zurücksetzen</button>
@@ -1001,6 +417,9 @@ Bei Verspätungen hier die neuen Zeiten eingeben!</p>
 'use strict';
 const APP={
 currentPage:'home',
+currentLang:'sv',
+recognition:null,
+isListening:false,
 currencies:{sek:0.087,dkk:0.134,pln:0.232},
 defaultHarbors:{
 stockholm:{arrival:'2026-06-01T08:00:00',departure:'2026-06-01T18:00:00'},
@@ -1017,22 +436,102 @@ gdansk:'Gdansk,Poland',
 karlskrona:'Karlskrona,Sweden',
 copenhagen:'Copenhagen,Denmark'
 },
+wcDatabase:{
+stockholm:[
+{name:'Stockholms Centralstation',lat:59.3293,lon:18.0686,price:'10 SEK',rating:3,hours:'06:00-23:00'},
+{name:'Åhléns City',lat:59.3326,lon:18.0649,price:'Kostenlos',rating:2,hours:'10:00-20:00'},
+{name:'Gamla Stan (Stortorget)',lat:59.3258,lon:18.0717,price:'10 SEK',rating:2,hours:'09:00-18:00'}
+],
+visby:[
+{name:'Almedalen (am Hafen)',lat:57.6348,lon:18.2948,price:'10 SEK',rating:3,hours:'24/7'},
+{name:'Stora Torget',lat:57.6380,lon:18.2948,price:'10 SEK',rating:2,hours:'09:00-18:00'}
+],
+gdansk:[
+{name:'Gdańsk Główny (Bahnhof)',lat:54.3560,lon:18.6446,price:'2 PLN',rating:2,hours:'05:00-23:00'},
+{name:'Galeria Bałtycka',lat:54.3598,lon:18.6450,price:'Kostenlos',rating:3,hours:'09:00-21:00'}
+],
+karlskrona:[
+{name:'Marinemuseum',lat:56.1605,lon:15.5866,price:'Kostenlos',rating:3,hours:'10:00-18:00'},
+{name:'Stortorget',lat:56.1613,lon:15.5865,price:'10 SEK',rating:2,hours:'09:00-18:00'}
+],
+copenhagen:[
+{name:'Magasin du Nord',lat:55.6783,lon:12.5841,price:'Kostenlos',rating:3,hours:'10:00-20:00'},
+{name:'Nyhavn',lat:55.6798,lon:12.5914,price:'5 DKK',rating:2,hours:'08:00-22:00'}
+]
+},
+quickPhrases:{
+sv:{
+'Hallo':'Hej!',
+'Danke':'Tack!',
+'Bitte':'Varsågod',
+'Ja':'Ja',
+'Nein':'Nej',
+'Wie viel kostet das?':'Hur mycket kostar det?',
+'Wo ist die Toilette?':'Var är toaletten?',
+'Ein Bier, bitte':'En öl, tack',
+'Die Rechnung, bitte':'Notan, tack',
+'Hilfe!':'Hjälp!'
+},
+da:{
+'Hallo':'Hej!',
+'Danke':'Tak!',
+'Bitte':'Værsgo',
+'Ja':'Ja',
+'Nein':'Nej',
+'Wie viel kostet das?':'Hvor meget koster det?',
+'Wo ist die Toilette?':'Hvor er toilettet?',
+'Ein Bier, bitte':'En øl, tak',
+'Die Rechnung, bitte':'Regningen, tak',
+'Hilfe!':'Hjælp!'
+},
+pl:{
+'Hallo':'Dzień dobry',
+'Danke':'Dziękuję',
+'Bitte':'Proszę',
+'Ja':'Tak',
+'Nein':'Nie',
+'Wie viel kostet das?':'Ile to kosztuje?',
+'Wo ist die Toilette?':'Gdzie jest toaleta?',
+'Ein Bier, bitte':'Jedno piwo, proszę',
+'Die Rechnung, bitte':'Rachunek, proszę',
+'Hilfe!':'Pomoc!'
+}
+},
 
 init(){
-console.log('🚢 Kreuzfahrt Navigator v5.0 - Komplett mit Admin-Panel!');
+console.log('🚢 Kreuzfahrt Navigator v6.0 - KOMPLETT mit WC-Finder & Übersetzer!');
 this.loadSchedule();
 this.updateCountdowns();
 setInterval(()=>this.updateCountdowns(),60000);
 this.convertCurrency('sek');
 this.convertCurrency('dkk');
 this.convertCurrency('pln');
+this.initSpeechRecognition();
+},
+
+initSpeechRecognition(){
+if('webkitSpeechRecognition' in window){
+this.recognition=new webkitSpeechRecognition();
+this.recognition.continuous=false;
+this.recognition.interimResults=false;
+this.recognition.lang='de-DE';
+this.recognition.onresult=(e)=>{
+const transcript=e.results[0][0].transcript;
+document.getElementById('translatorInput').value=transcript;
+this.translateText();
+};
+this.recognition.onerror=(e)=>{
+document.getElementById('listeningStatus').textContent='❌ Fehler: '+e.error;
+this.isListening=false;
+document.getElementById('micBtn').classList.remove('listening');
+};
+}
 },
 
 loadSchedule(){
 const saved=localStorage.getItem('cruiseSchedule');
 if(saved){
 this.harbors=JSON.parse(saved);
-console.log('✅ Gespeicherte Zeiten geladen');
 }else{
 this.harbors=JSON.parse(JSON.stringify(this.defaultHarbors));
 }
@@ -1056,10 +555,7 @@ const harbors={};
 const arrInput=document.getElementById(harbor+'-arrival');
 const depInput=document.getElementById(harbor+'-departure');
 if(arrInput.value && depInput.value){
-harbors[harbor]={
-arrival:arrInput.value+':00',
-departure:depInput.value+':00'
-};
+harbors[harbor]={arrival:arrInput.value+':00',departure:depInput.value+':00'};
 }
 });
 this.harbors=harbors;
@@ -1108,6 +604,12 @@ setTimeout(()=>this.loadWeather('stockholm'),100);
 if(tool==='admin'){
 this.loadAdminForm();
 }
+if(tool==='translator'){
+this.loadQuickPhrases();
+}
+if(tool==='wc'){
+this.showWCsByHarbor('stockholm');
+}
 },
 
 loadAdminForm(){
@@ -1122,8 +624,8 @@ if(depInput)depInput.value=dep;
 },
 
 switchCurrency(curr,event){
-document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('#currencyPage .tab-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('#currencyPage .tab-content').forEach(t=>t.classList.remove('active'));
 event.target.classList.add('active');
 document.getElementById(curr+'Tab').classList.add('active');
 },
@@ -1139,7 +641,6 @@ result.textContent=eur+' €';
 },
 
 updateCountdowns(){
-const now=new Date();
 Object.keys(this.harbors).forEach(harbor=>{
 const el=document.getElementById('countdown-'+harbor);
 if(el)this.updateSingleCountdown(harbor,el);
@@ -1152,7 +653,6 @@ updateSingleCountdown(harbor,el){
 const now=new Date();
 const arrival=new Date(this.harbors[harbor].arrival);
 const departure=new Date(this.harbors[harbor].departure);
-
 if(now<arrival){
 const diff=arrival-now;
 const days=Math.floor(diff/(1000*60*60*24));
@@ -1182,23 +682,18 @@ el.style.background='linear-gradient(135deg,#00cc66,#00994d)';
 
 async loadWeather(harbor,event){
 if(event){
-document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('#weatherPage .tab-btn').forEach(b=>b.classList.remove('active'));
 event.target.classList.add('active');
 }
-
 const content=document.getElementById('weatherContent');
 content.innerHTML='<div class="card"><h3>🌦️ Lädt Wetter...</h3></div>';
-
 try{
 const city=this.weatherCities[harbor];
 const res=await fetch(`/.netlify/functions/weather?city=${encodeURIComponent(city)}`);
 const data=await res.json();
-
 if(!data.forecast)throw new Error('Keine Daten');
-
 const current=data.current;
 const forecast=data.forecast.forecastday;
-
 let html='<div class="card">';
 html+=`<h3>🌦️ ${data.location.name}</h3>`;
 html+=`<div style="text-align:center;margin:20px 0">`;
@@ -1207,7 +702,6 @@ html+=`<div style="font-size:2.5em;font-weight:900;color:#0066cc;margin:10px 0">
 html+=`<div style="font-size:1.2em">${current.condition.text}</div>`;
 html+=`<div style="color:#666">Gefühlt ${Math.round(current.feelslike_c)}°C • Wind ${Math.round(current.wind_kph)} km/h</div>`;
 html+=`</div></div>`;
-
 html+='<div class="card"><h3>📅 7-Tage-Vorhersage</h3>';
 forecast.forEach((day,i)=>{
 const date=new Date(day.date);
@@ -1215,20 +709,14 @@ const dayName=i===0?'Heute':date.toLocaleDateString('de-DE',{weekday:'short',day
 html+=`<div class="attraction-item"><strong>${dayName}</strong>`;
 html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">`;
 html+=`<div style="font-size:2em">${this.getWeatherIcon(day.day.condition.code)}</div>`;
-html+=`<div style="flex:1;margin:0 15px">`;
-html+=`<div style="font-weight:600">${day.day.condition.text}</div>`;
-html+=`<div style="color:#666;font-size:0.9em">💧 ${day.day.daily_chance_of_rain}% Regen</div>`;
-html+=`</div>`;
-html+=`<div style="text-align:right">`;
-html+=`<div style="font-weight:800;font-size:1.2em;color:#0066cc">${Math.round(day.day.maxtemp_c)}°</div>`;
-html+=`<div style="color:#666">${Math.round(day.day.mintemp_c)}°</div>`;
-html+=`</div></div></div>`;
+html+=`<div style="flex:1;margin:0 15px"><div style="font-weight:600">${day.day.condition.text}</div>`;
+html+=`<div style="color:#666;font-size:0.9em">💧 ${day.day.daily_chance_of_rain}% Regen</div></div>`;
+html+=`<div style="text-align:right"><div style="font-weight:800;font-size:1.2em;color:#0066cc">${Math.round(day.day.maxtemp_c)}°</div>`;
+html+=`<div style="color:#666">${Math.round(day.day.mintemp_c)}°</div></div></div></div>`;
 });
 html+=`</div>`;
-
 content.innerHTML=html;
 }catch(e){
-console.error('Wetter-Fehler:',e);
 content.innerHTML='<div class="card"><h3>❌ Fehler</h3><p>Wetter nicht verfügbar.</p></div>';
 }
 },
@@ -1245,10 +733,149 @@ if(code>=1240&&code<=1246)return'🌦️';
 if(code>=1249&&code<=1264)return'🌨️';
 if(code===1273||code===1276)return'⛈️';
 return'🌦️';
+},
+
+findNearbyWCs(){
+const status=document.getElementById('wcSearchStatus');
+const results=document.getElementById('wcResults');
+status.textContent='📍 GPS-Position wird abgerufen...';
+if(!navigator.geolocation){
+status.textContent='❌ GPS nicht verfügbar';
+return;
+}
+navigator.geolocation.getCurrentPosition((pos)=>{
+const userLat=pos.coords.latitude;
+const userLon=pos.coords.longitude;
+status.textContent='✅ Position gefunden! Suche WCs...';
+let allWCs=[];
+Object.keys(this.wcDatabase).forEach(harbor=>{
+this.wcDatabase[harbor].forEach(wc=>{
+const dist=this.calculateDistance(userLat,userLon,wc.lat,wc.lon);
+allWCs.push({...wc,distance:dist,harbor:harbor});
+});
+});
+allWCs.sort((a,b)=>a.distance-b.distance);
+const nearest=allWCs.slice(0,5);
+let html='<div class="card"><h3>📍 Nächste WCs (GPS)</h3>';
+nearest.forEach(wc=>{
+const stars='⭐'.repeat(wc.rating);
+html+=`<div class="wc-item">`;
+html+=`<div class="wc-distance">${wc.distance.toFixed(0)}m</div>`;
+html+=`<strong>${wc.name}</strong>`;
+html+=`<p>💰 ${wc.price} • ${stars}</p>`;
+html+=`<small>🕐 ${wc.hours}</small>`;
+html+=`</div>`;
+});
+html+=`</div>`;
+results.innerHTML=html;
+status.textContent='';
+},(err)=>{
+status.textContent='❌ GPS-Zugriff verweigert. Nutze "WCs nach Hafen" unten.';
+});
+},
+
+calculateDistance(lat1,lon1,lat2,lon2){
+const R=6371000;
+const dLat=(lat2-lat1)*Math.PI/180;
+const dLon=(lon2-lon1)*Math.PI/180;
+const a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+return R*c;
+},
+
+showWCsByHarbor(harbor,event){
+if(event){
+document.querySelectorAll('#wcPage .tab-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+}
+const content=document.getElementById('wcByHarborContent');
+const wcs=this.wcDatabase[harbor];
+let html='';
+wcs.forEach(wc=>{
+const stars='⭐'.repeat(wc.rating);
+html+=`<div class="wc-item">`;
+html+=`<strong>${wc.name}</strong>`;
+html+=`<p>💰 ${wc.price} • ${stars}</p>`;
+html+=`<small>🕐 ${wc.hours}</small>`;
+html+=`</div>`;
+});
+content.innerHTML=html;
+},
+
+selectLanguage(lang,event){
+this.currentLang=lang;
+document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+this.loadQuickPhrases();
+},
+
+loadQuickPhrases(){
+const phrases=this.quickPhrases[this.currentLang];
+const container=document.getElementById('quickPhrases');
+let html='';
+Object.keys(phrases).forEach(de=>{
+html+=`<div class="phrase-item" onclick="APP.speakPhrase('${phrases[de]}','${this.currentLang}')">`;
+html+=`<div class="phrase-de">${de}</div>`;
+html+=`<div class="phrase-foreign">🔊 ${phrases[de]}</div>`;
+html+=`</div>`;
+});
+container.innerHTML=html;
+},
+
+startListening(){
+if(!this.recognition){
+alert('❌ Spracherkennung nicht verfügbar');
+return;
+}
+this.isListening=true;
+document.getElementById('micBtn').classList.add('listening');
+document.getElementById('listeningStatus').textContent='🎤 Höre zu...';
+this.recognition.start();
+},
+
+stopListening(){
+if(this.recognition && this.isListening){
+this.recognition.stop();
+this.isListening=false;
+document.getElementById('micBtn').classList.remove('listening');
+document.getElementById('listeningStatus').textContent='';
+}
+},
+
+async translateText(){
+const input=document.getElementById('translatorInput').value.trim();
+if(!input)return;
+const result=document.getElementById('translationResult');
+result.innerHTML='<div class="card"><h3>🔄 Übersetze...</h3></div>';
+const phrases=this.quickPhrases[this.currentLang];
+const match=Object.keys(phrases).find(k=>k.toLowerCase()===input.toLowerCase());
+if(match){
+const translation=phrases[match];
+result.innerHTML=`<div class="translation-box">
+<div style="color:#666">Deutsch:</div>
+<div style="font-size:1.2em;margin:10px 0">${input}</div>
+<div style="color:#666;margin-top:15px">${this.getLangName(this.currentLang)}:</div>
+<div class="translation-result">${translation}</div>
+<button class="quick-btn translator" style="width:100%;margin-top:15px" onclick="APP.speakPhrase('${translation}','${this.currentLang}')">🔊 Abspielen</button>
+</div>`;
+}else{
+result.innerHTML='<div class="card"><h3>ℹ️ Phrase nicht gefunden</h3><p>Nutze die Schnell-Phrasen unten oder probiere andere Formulierungen!</p></div>';
+}
+},
+
+speakPhrase(text,lang){
+const utterance=new SpeechSynthesisUtterance(text);
+utterance.lang=lang===  'sv'?'sv-SE':lang==='da'?'da-DK':'pl-PL';
+utterance.rate=0.8;
+speechSynthesis.speak(utterance);
+},
+
+getLangName(lang){
+return lang==='sv'?'Schwedisch':lang==='da'?'Dänisch':'Polnisch';
 }
 };
 
 document.addEventListener('DOMContentLoaded',()=>APP.init());
 </script>
 </body>
-</html> 
+</html>
