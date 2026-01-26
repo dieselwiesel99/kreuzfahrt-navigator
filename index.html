@@ -47,7 +47,9 @@ border:2px solid rgba(255,255,255,0.2);
 .time-info{display:flex;align-items:center;gap:5px;color:#666}
 .countdown{background:linear-gradient(135deg,#ff6b6b,#ee5a6f);color:#fff;padding:8px 15px;border-radius:12px;font-weight:700;font-size:0.9em;display:inline-block;margin-top:8px}
 .countdown.soon{background:linear-gradient(135deg,#ffd93d,#ff9f1c);animation:pulse 2s infinite}
+.countdown.urgent{background:linear-gradient(135deg,#ff0000,#cc0000);animation:urgentPulse 1s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes urgentPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(255,0,0,0.7)}50%{transform:scale(1.05);box-shadow:0 0 20px rgba(255,0,0,0.9)}}
 .quick-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:15px}
 .quick-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:12px;border-radius:12px;font-size:0.85em;font-weight:700;cursor:pointer;transition:transform 0.2s}
 .quick-btn:active{transform:scale(0.95)}
@@ -55,6 +57,7 @@ border:2px solid rgba(255,255,255,0.2);
 .quick-btn.currency{background:linear-gradient(135deg,#43e97b,#38f9d7)}
 .quick-btn.weather{background:linear-gradient(135deg,#fa709a,#fee140)}
 .quick-btn.admin{background:linear-gradient(135deg,#667eea,#764ba2)}
+.quick-btn.navigation{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)}
 .info-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border-radius:15px;padding:18px;margin:15px 0;border:2px solid rgba(255,255,255,0.2)}
 .info-card h3{font-size:1.1em;margin-bottom:10px}
 .card{background:#fff;color:#333;border-radius:18px;padding:20px;margin:15px 0;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
@@ -91,6 +94,15 @@ border:2px solid rgba(255,255,255,0.2);
 .wc-item strong{color:#4facfe;font-size:1.05em}
 .wc-rating{color:#ffd93d;font-size:1.1em}
 .wc-distance{position:absolute;top:15px;right:15px;background:#4facfe;color:#fff;padding:5px 10px;border-radius:8px;font-size:0.85em;font-weight:700}
+.address-box{background:#f0f7ff;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #0066cc;position:relative}
+.address-box .lang-label{font-size:0.85em;color:#666;font-weight:600;margin-bottom:5px}
+.address-box .address-text{font-size:1.1em;font-weight:700;color:#0066cc;line-height:1.5}
+.copy-btn{background:#0066cc;color:#fff;border:none;padding:8px 15px;border-radius:8px;font-size:0.85em;font-weight:700;margin-top:10px;cursor:pointer}
+.copy-btn:active{background:#004999}
+.big-countdown{background:linear-gradient(135deg,#ff6b6b,#ee5a6f);color:#fff;padding:25px;border-radius:18px;text-align:center;margin:15px 0;box-shadow:0 8px 30px rgba(255,107,107,0.4)}
+.big-countdown.urgent{background:linear-gradient(135deg,#ff0000,#cc0000);animation:urgentPulse 1s infinite}
+.big-countdown .time{font-size:3em;font-weight:900;margin:10px 0}
+.big-countdown .label{font-size:1.2em;opacity:0.9}
 input[type="datetime-local"]{font-size:1em!important}
 @media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}}
 </style>
@@ -104,6 +116,10 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="ship-icon">🚢</div>
 <h1>Kreuzfahrt Navigator</h1>
 <div class="subtitle">Ostsee 2026 • 30. Mai - 6. Juni</div>
+</div>
+
+<div style="margin-bottom:15px">
+<button class="quick-btn navigation" style="width:100%;padding:18px;font-size:1.1em" onclick="APP.showTool('navigate')">🧭 Zurück zum Schiff</button>
 </div>
 
 <div class="info-card">
@@ -196,6 +212,31 @@ input[type="datetime-local"]{font-size:1em!important}
 • Übersetzungen: Siri oder Google Translate nutzen</p>
 </div>
 </div>
+<!-- NAVIGATION TOOL - ZURÜCK ZUM SCHIFF -->
+<div id="navigatePage" class="page">
+<button class="back-btn" onclick="APP.showHome()">← Zurück</button>
+<div class="header">
+<div class="ship-icon">🧭</div>
+<h1>Zurück zum Schiff</h1>
+<div class="subtitle">Navigation & Terminal-Adressen</div>
+</div>
+
+<div id="navCountdown"></div>
+
+<div class="card">
+<h3>📍 Welcher Hafen?</h3>
+<div class="tab-buttons">
+<button class="tab-btn active" onclick="APP.showNavHarbor('stockholm',event)">Stockholm</button>
+<button class="tab-btn" onclick="APP.showNavHarbor('visby',event)">Visby</button>
+<button class="tab-btn" onclick="APP.showNavHarbor('gdansk',event)">Danzig</button>
+<button class="tab-btn" onclick="APP.showNavHarbor('karlskrona',event)">Karlskrona</button>
+<button class="tab-btn" onclick="APP.showNavHarbor('copenhagen',event)">Kopenhagen</button>
+</div>
+</div>
+
+<div id="navContent"></div>
+</div>
+
 <!-- STOCKHOLM PAGE -->
 <div id="stockholmPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
@@ -368,6 +409,7 @@ input[type="datetime-local"]{font-size:1em!important}
 'use strict';
 const APP={
 currentPage:'home',
+currentNavHarbor:'stockholm',
 currencies:{sek:0.087,dkk:0.134,pln:0.232},
 defaultHarbors:{
 stockholm:{arrival:'2026-06-01T08:00:00',departure:'2026-06-01T18:00:00'},
@@ -383,6 +425,53 @@ visby:'Visby,Sweden',
 gdansk:'Gdansk,Poland',
 karlskrona:'Karlskrona,Sweden',
 copenhagen:'Copenhagen,Denmark'
+},
+terminalData:{
+stockholm:{
+name:'Frihamnen Terminal',
+address:'Magasinsgatan 15, 115 41 Stockholm, Schweden',
+addressLocal:'Magasinsgatan 15, 115 41 Stockholm',
+lat:59.3398,
+lon:18.1042,
+transit:'Bus 76 → Ropsten (10 Min), dann T-bana nach T-Centralen (15 Min)',
+lastTransit:'Letzter Bus: ~23:00 Uhr'
+},
+visby:{
+name:'Visby Cruise Terminal',
+address:'Hamnplan, 621 57 Visby, Schweden',
+addressLocal:'Hamnplan, 621 57 Visby',
+lat:57.6348,
+lon:18.2948,
+transit:'Zu Fuß (1,2 km / 15 Min ins Zentrum)',
+lastTransit:'Alles fußläufig - keine ÖPNV nötig'
+},
+gdansk:{
+name:'Gdynia Cruise Terminal',
+address:'Nabrzeże Norweskie, 81-001 Gdynia, Polen',
+addressLocal:'Nabrzeże Norweskie, 81-001 Gdynia',
+lat:54.5189,
+lon:18.5500,
+transit:'Gdynia Główna → SKM-Zug nach Gdańsk (30 Min)',
+lastTransit:'Letzter Zug: ~22:30 Uhr'
+},
+karlskrona:{
+name:'Karlskrona Cruise Terminal',
+address:'Stumholmen, 371 33 Karlskrona, Schweden',
+addressLocal:'Stumholmen, 371 33 Karlskrona',
+lat:56.1616,
+lon:15.5900,
+transit:'Zu Fuß (1 km / 12 Min ins Zentrum)',
+lastTransit:'Alles fußläufig - keine ÖPNV nötig'
+},
+copenhagen:{
+name:'Oceankaj Terminal',
+address:'Oceankaj, 2150 Nordhavn, Kopenhagen, Dänemark',
+addressLocal:'Oceankaj, 2150 Nordhavn',
+lat:55.7100,
+lon:12.6100,
+transit:'Shuttle → Østerport, dann S-Bahn (20 Min)',
+lastTransit:'Letzter Shuttle: ~20:00 Uhr'
+}
 },
 wcDatabase:{
 stockholm:[
@@ -409,7 +498,7 @@ copenhagen:[
 },
 
 init(){
-console.log('🚢 Kreuzfahrt Navigator v8.0 - Finalisiert OHNE Übersetzer!');
+console.log('🚢 Kreuzfahrt Navigator v9.0 - MIT "Zurück zum Schiff"!');
 this.loadSchedule();
 this.updateCountdowns();
 setInterval(()=>this.updateCountdowns(),60000);
@@ -497,6 +586,11 @@ this.loadAdminForm();
 if(tool==='wc'){
 this.showWCsByHarbor('stockholm');
 }
+if(tool==='navigate'){
+this.showNavHarbor('stockholm');
+this.updateNavCountdown();
+setInterval(()=>this.updateNavCountdown(),60000);
+}
 },
 
 loadAdminForm(){
@@ -507,6 +601,83 @@ const arrInput=document.getElementById(harbor+'-arrival');
 const depInput=document.getElementById(harbor+'-departure');
 if(arrInput)arrInput.value=arr;
 if(depInput)depInput.value=dep;
+});
+},
+
+showNavHarbor(harbor,event){
+if(event){
+document.querySelectorAll('#navigatePage .tab-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+}
+this.currentNavHarbor=harbor;
+const terminal=this.terminalData[harbor];
+const content=document.getElementById('navContent');
+const mapsUrl=`https://www.google.com/maps/search/?api=1&query=${terminal.lat},${terminal.lon}`;
+let html='<div class="card">';
+html+=`<h3>📍 ${terminal.name}</h3>`;
+html+=`<div class="address-box">`;
+html+=`<div class="lang-label">Adresse (Deutsch):</div>`;
+html+=`<div class="address-text">${terminal.address}</div>`;
+html+=`<button class="copy-btn" onclick="APP.copyText('${terminal.address}')">📋 Kopieren</button>`;
+html+=`</div>`;
+html+=`<div class="address-box">`;
+html+=`<div class="lang-label">Für Taxi (Landessprache):</div>`;
+html+=`<div class="address-text">${terminal.addressLocal}</div>`;
+html+=`<button class="copy-btn" onclick="APP.copyText('${terminal.addressLocal}')">📋 Kopieren</button>`;
+html+=`</div>`;
+html+=`<a href="${mapsUrl}" target="_blank" style="display:block;margin-top:15px">`;
+html+=`<button class="quick-btn navigation" style="width:100%;padding:15px;font-size:1em">🗺️ In Google Maps öffnen</button>`;
+html+=`</a>`;
+html+=`</div>`;
+html+=`<div class="card">`;
+html+=`<h3>🚇 ÖPNV zurück zum Schiff</h3>`;
+html+=`<p style="margin:10px 0;font-size:1.05em"><strong>${terminal.transit}</strong></p>`;
+html+=`<div class="info-card" style="background:rgba(255,183,77,0.2);border-color:#ffb74d">`;
+html+=`<strong>⏰ ${terminal.lastTransit}</strong>`;
+html+=`</div>`;
+html+=`</div>`;
+content.innerHTML=html;
+this.updateNavCountdown();
+},
+
+updateNavCountdown(){
+const countdownEl=document.getElementById('navCountdown');
+if(!countdownEl)return;
+const harbor=this.currentNavHarbor;
+const now=new Date();
+const departure=new Date(this.harbors[harbor].departure);
+const diff=departure-now;
+if(diff<=0){
+countdownEl.innerHTML='<div class="big-countdown" style="background:linear-gradient(135deg,#00cc66,#00994d)"><div class="label">✅ Schiff ist abgefahren</div></div>';
+return;
+}
+const hours=Math.floor(diff/(1000*60*60));
+const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+const isUrgent=hours<1;
+const className=isUrgent?'big-countdown urgent':'big-countdown';
+let html=`<div class="${className}">`;
+html+=`<div class="label">⛵ Abfahrt in:</div>`;
+html+=`<div class="time">${hours}h ${mins}min</div>`;
+if(isUrgent){
+html+=`<div class="label" style="font-size:1.3em;margin-top:10px">🚨 SOFORT ZURÜCK ZUM SCHIFF!</div>`;
+}else if(hours<2){
+html+=`<div class="label" style="font-size:1.1em;margin-top:10px">⚠️ Langsam Richtung Hafen!</div>`;
+}
+html+=`</div>`;
+countdownEl.innerHTML=html;
+},
+
+copyText(text){
+navigator.clipboard.writeText(text).then(()=>{
+alert('✅ Adresse kopiert!');
+}).catch(()=>{
+const textarea=document.createElement('textarea');
+textarea.value=text;
+document.body.appendChild(textarea);
+textarea.select();
+document.execCommand('copy');
+document.body.removeChild(textarea);
+alert('✅ Adresse kopiert!');
 });
 },
 
@@ -558,8 +729,13 @@ el.className='countdown soon';
 const diff=departure-now;
 const hours=Math.floor(diff/(1000*60*60));
 const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+if(hours<1){
+el.textContent=`🚨 Abfahrt in ${mins}min!`;
+el.className='countdown urgent';
+}else{
 el.textContent=`⚠️ Abfahrt in ${hours}h ${mins}min`;
 el.className='countdown soon';
+}
 }else{
 el.textContent='✅ Besucht';
 el.className='countdown';
