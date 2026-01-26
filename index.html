@@ -1092,11 +1092,22 @@ Altstadt ist in <strong>Gdańsk</strong> (20 km entfernt)</p>
 <div class="header">
 <div class="ship-icon">🌦️</div>
 <h1>Wetter-Vorhersage</h1>
-<div class="subtitle">7-Tage-Prognose</div>
+<div class="subtitle">7-Tage-Prognose für alle Häfen</div>
 </div>
+
+<div class="tab-buttons">
+<button class="tab-btn active" onclick="APP.loadWeather('stockholm')">🇸🇪 Stockholm</button>
+<button class="tab-btn" onclick="APP.loadWeather('visby')">🇸🇪 Visby</button>
+<button class="tab-btn" onclick="APP.loadWeather('gdansk')">🇵🇱 Gdańsk</button>
+<button class="tab-btn" onclick="APP.loadWeather('karlskrona')">🇸🇪 Karlskrona</button>
+<button class="tab-btn" onclick="APP.loadWeather('copenhagen')">🇩🇰 Kopenhagen</button>
+</div>
+
+<div id="weatherContent">
 <div class="card">
-<h3>🚧 In Entwicklung</h3>
-<p>Wetter-Integration kommt noch!</p>
+<h3>🌦️ Lädt Wetter...</h3>
+<p>Einen Moment bitte...</p>
+</div>
 </div>
 </div>
 
