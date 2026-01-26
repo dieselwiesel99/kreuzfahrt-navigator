@@ -48,10 +48,9 @@ border:2px solid rgba(255,255,255,0.2);
 .countdown{background:linear-gradient(135deg,#ff6b6b,#ee5a6f);color:#fff;padding:8px 15px;border-radius:12px;font-weight:700;font-size:0.9em;display:inline-block;margin-top:8px}
 .countdown.soon{background:linear-gradient(135deg,#ffd93d,#ff9f1c);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.quick-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:15px}
 .quick-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:12px;border-radius:12px;font-size:0.85em;font-weight:700;cursor:pointer;transition:transform 0.2s}
 .quick-btn:active{transform:scale(0.95)}
-.quick-btn.translator{background:linear-gradient(135deg,#f093fb,#f5576c)}
 .quick-btn.wc{background:linear-gradient(135deg,#4facfe,#00f2fe)}
 .quick-btn.currency{background:linear-gradient(135deg,#43e97b,#38f9d7)}
 .quick-btn.weather{background:linear-gradient(135deg,#fa709a,#fee140)}
@@ -70,8 +69,7 @@ border:2px solid rgba(255,255,255,0.2);
 .restaurant-item strong{color:#00cc66;font-size:1.05em}
 .price-badge{display:inline-block;background:#00cc66;color:#fff;padding:4px 10px;border-radius:8px;font-size:0.85em;font-weight:700;margin-left:8px}
 .price-badge.mid{background:#ff9f1c}
-.phrase-item{background:#f0f7ff;padding:12px 15px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background 0.2s}
-.phrase-item:active{background:#e0f0ff}
+.phrase-item{background:#f0f7ff;padding:12px 15px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
 .phrase-de{font-weight:700;color:#333}
 .phrase-foreign{color:#0066cc;font-weight:600;font-size:1.05em}
 .phrase-pronounce{color:#666;font-size:0.85em;font-style:italic}
@@ -93,19 +91,8 @@ border:2px solid rgba(255,255,255,0.2);
 .wc-item strong{color:#4facfe;font-size:1.05em}
 .wc-rating{color:#ffd93d;font-size:1.1em}
 .wc-distance{position:absolute;top:15px;right:15px;background:#4facfe;color:#fff;padding:5px 10px;border-radius:8px;font-size:0.85em;font-weight:700}
-.mic-btn{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;border:none;padding:20px;border-radius:50%;font-size:2em;width:80px;height:80px;margin:20px auto;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s;box-shadow:0 8px 30px rgba(245,87,108,0.4)}
-.mic-btn:active{transform:scale(0.95)}
-.mic-btn.listening{animation:micPulse 1s infinite;background:linear-gradient(135deg,#ff6b6b,#ee5a6f)}
-@keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.translation-box{background:#f0f7ff;padding:20px;border-radius:15px;margin:15px 0;min-height:100px}
-.translation-result{font-size:1.4em;font-weight:700;color:#0066cc;margin:10px 0}
-.lang-selector{display:flex;gap:10px;margin:15px 0;justify-content:center;flex-wrap:wrap}
-.lang-btn{background:rgba(255,255,255,0.3);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:10px 20px;border-radius:12px;cursor:pointer;transition:all 0.2s;font-size:0.9em}
-.lang-btn.active{background:#fff;color:#0066cc;border-color:#fff}
 input[type="datetime-local"]{font-size:1em!important}
-.search-input{width:100%;padding:15px;border:3px solid #e0e0e0;border-radius:12px;font-size:1.1em;margin:10px 0}
-.search-input:focus{border-color:#0066cc;outline:none}
-@media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}.lang-btn{font-size:0.8em;padding:8px 12px}}
+@media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}}
 </style>
 </head>
 <body>
@@ -195,7 +182,6 @@ input[type="datetime-local"]{font-size:1em!important}
 <button class="quick-btn weather" onclick="APP.showTool('weather')">🌦️ Wetter</button>
 <button class="quick-btn currency" onclick="APP.showTool('currency')">💱 Währung</button>
 <button class="quick-btn wc" onclick="APP.showTool('wc')">🚻 WC-Finder</button>
-<button class="quick-btn translator" onclick="APP.showTool('translator')">🎤 Übersetzer</button>
 </div>
 
 <div style="margin-top:15px">
@@ -206,7 +192,8 @@ input[type="datetime-local"]{font-size:1em!important}
 <h3>💡 Quick-Tipps</h3>
 <p>• Spätestens 1 Std vor Abfahrt zurück<br>
 • Öffentliche Verkehrsmittel vorher checken<br>
-• Notfall: 112 funktioniert überall</p>
+• Notfall: 112 funktioniert überall<br>
+• Übersetzungen: Siri oder Google Translate nutzen</p>
 </div>
 </div>
 <!-- STOCKHOLM PAGE -->
@@ -272,9 +259,9 @@ input[type="datetime-local"]{font-size:1em!important}
 <div id="gdanskPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
 <div class="header"><div class="ship-icon">🇵🇱</div><h1>Danzig/Gdingen</h1><div class="subtitle">03. Juni • 10:00 - 20:00 Uhr</div><div class="countdown" id="countdown-detail-gdansk" style="margin-top:10px">Lädt...</div></div>
-<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d"><h3>⚠️ WICHTIG!</h3><p>Terminal ist in <strong>Gdynia (Gdingen)</strong>!<br>Altstadt ist in <strong>Danzig</strong> (20 km entfernt)</p></div>
-<div class="card"><h3>🚆 Von Gdynia → Danzig</h3><div class="route-step"><span class="step-number">1</span><strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br><small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small></div><div class="route-step"><span class="step-number">2</span><strong>SKM-Zug (S-Bahn) → Danzig Główny</strong><br><small>20-30 Min • Alle 10-15 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>10 Min zu Fuß → Altstadt (Altstadt)</strong><br><small>✅ Angekommen!</small></div><div class="info-card">💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal</div></div>
-<div class="card"><h3>🏛️ Danzig Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Altstadt (Główne Miasto)</strong><p>Historische Altstadt mit bunten Häusern</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Marienkirche</strong><p>Größte Backsteinkirche der Welt</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 45 Min</span><span class="meta-item">💰 5 PLN (~1€)</span></div></div><div class="attraction-item"><strong>Hafenkran (Żuraw)</strong><p>Mittelalterlicher Hafenkran, Wahrzeichen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 10 PLN (~2€)</span></div></div></div>
+<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d"><h3>⚠️ WICHTIG!</h3><p>Terminal ist in <strong>Gdingen (Gdynia)</strong>!<br>Altstadt ist in <strong>Danzig (Gdańsk)</strong> - 20 km entfernt</p></div>
+<div class="card"><h3>🚆 Von Gdingen → Danzig</h3><div class="route-step"><span class="step-number">1</span><strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br><small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small></div><div class="route-step"><span class="step-number">2</span><strong>SKM-Zug (S-Bahn) → Danzig Główny</strong><br><small>20-30 Min • Alle 10-15 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>10 Min zu Fuß → Altstadt</strong><br><small>✅ Angekommen!</small></div><div class="info-card">💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal</div></div>
+<div class="card"><h3>🏛️ Danzig Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Altstadt</strong><p>Historische Altstadt mit bunten Häusern</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Marienkirche</strong><p>Größte Backsteinkirche der Welt</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 45 Min</span><span class="meta-item">💰 5 PLN (~1€)</span></div></div><div class="attraction-item"><strong>Hafenkran</strong><p>Mittelalterlicher Hafenkran, Wahrzeichen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 10 PLN (~2€)</span></div></div></div>
 <div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Pierogarnia Mandu</strong><span class="price-badge">€</span><p>Polnische Pierogi (Teigtaschen)</p><small>~8€ • ⭐⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Gdański Bowke</strong><span class="price-badge mid">€€</span><p>Traditionell polnische Küche</p><small>~15€ • ⭐⭐⭐⭐</small></div></div>
 <div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Danzig Główny (Bahnhof)</strong><p>📍 Am Bahnhof • 💰 2 PLN • <span class="wc-rating">⭐⭐</span></p></div></div>
 <div class="card"><h3>🗣️ Wichtige Phrasen (Polnisch)</h3><div class="phrase-item"><div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(chen dob-ry)</div></div><div class="phrase-foreign">Dzień dobry</div></div><div class="phrase-item"><div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(jen-ku-ye)</div></div><div class="phrase-foreign">Dziękuję</div></div><div class="phrase-item"><div><div class="phrase-de">Wie viel?</div><div class="phrase-pronounce">(ee-le)</div></div><div class="phrase-foreign">Ile?</div></div><div class="phrase-item"><div><div class="phrase-de">Ein Bier, bitte</div></div><div class="phrase-foreign">Jedno piwo, proszę</div></div></div>
@@ -317,7 +304,7 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="card">
 <div id="sekTab" class="tab-content active"><h3>🇸🇪 Schwedische Kronen (SEK)</h3><input type="number" class="currency-input" id="sekInput" value="100" oninput="APP.convertCurrency('sek')"><div class="currency-result"><div>≈</div><div class="big" id="sekResult">8,70 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 10 SEK ≈ 1 EUR<br>📍 <strong>Für:</strong> Stockholm, Visby, Karlskrona</div></div>
 <div id="dkkTab" class="tab-content"><h3>🇩🇰 Dänische Kronen (DKK)</h3><input type="number" class="currency-input" id="dkkInput" value="100" oninput="APP.convertCurrency('dkk')"><div class="currency-result"><div>≈</div><div class="big" id="dkkResult">13,40 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 7,5 DKK ≈ 1 EUR<br>📍 <strong>Für:</strong> Kopenhagen</div></div>
-<div id="plnTab" class="tab-content"><h3>🇵🇱 Polnische Zloty (PLN)</h3><input type="number" class="currency-input" id="plnInput" value="100" oninput="APP.convertCurrency('pln')"><div class="currency-result"><div>≈</div><div class="big" id="plnResult">23,20 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 4,3 PLN ≈ 1 EUR<br>📍 <strong>Für:</strong> Gdańsk/Gdingen</div></div>
+<div id="plnTab" class="tab-content"><h3>🇵🇱 Polnische Zloty (PLN)</h3><input type="number" class="currency-input" id="plnInput" value="100" oninput="APP.convertCurrency('pln')"><div class="currency-result"><div>≈</div><div class="big" id="plnResult">23,20 €</div></div><div class="info-card">💡 <strong>Faustregel:</strong> 4,3 PLN ≈ 1 EUR<br>📍 <strong>Für:</strong> Danzig/Gdingen</div></div>
 </div>
 <div class="card"><h3>💳 Bezahltipps</h3><p>✅ <strong>Kreditkarte</strong> überall akzeptiert<br>✅ <strong>Kontaktlos</strong> sehr verbreitet<br>⚠️ <strong>Bargeld:</strong> Zunehmend seltener<br>💰 <strong>Geldautomaten:</strong> An Bahnhöfen<br>❌ <strong>Nicht:</strong> Am Schiff wechseln!</p></div>
 </div>
@@ -359,44 +346,6 @@ input[type="datetime-local"]{font-size:1em!important}
 </div>
 </div>
 
-<!-- TRANSLATOR TOOL -->
-<div id="translatorPage" class="page">
-<button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header"><div class="ship-icon">🎤</div><h1>Live-Übersetzer</h1><div class="subtitle">Spracherkennung & Übersetzung</div></div>
-
-<div class="card">
-<h3>🌐 Sprache wählen</h3>
-<div class="lang-selector">
-<button class="lang-btn active" onclick="APP.selectLanguage('sv',event)">🇸🇪 Schwedisch</button>
-<button class="lang-btn" onclick="APP.selectLanguage('da',event)">🇩🇰 Dänisch</button>
-<button class="lang-btn" onclick="APP.selectLanguage('pl',event)">🇵🇱 Polnisch</button>
-<button class="lang-btn" onclick="APP.selectLanguage('en',event)">🇬🇧 Englisch</button>
-</div>
-</div>
-
-<div class="card">
-<h3>🎤 Mikrofon-Übersetzung</h3>
-<p style="text-align:center;color:#666;margin-bottom:15px">Tippe & halte das Mikrofon, dann sprich!</p>
-<div style="text-align:center">
-<button class="mic-btn" id="micBtn" onmousedown="APP.startListening()" onmouseup="APP.stopListening()" ontouchstart="APP.startListening()" ontouchend="APP.stopListening()">🎤</button>
-</div>
-<div id="listeningStatus" style="text-align:center;color:#666;margin-top:10px"></div>
-</div>
-
-<div class="card">
-<h3>📝 Oder Text eingeben</h3>
-<input type="text" class="search-input" id="translatorInput" placeholder="Text zum Übersetzen eingeben..." onkeyup="if(event.key==='Enter')APP.translateText()">
-<button class="quick-btn translator" style="width:100%" onclick="APP.translateText()">🔄 Übersetzen</button>
-</div>
-
-<div id="translationResult"></div>
-
-<div class="card">
-<h3>⭐ Schnell-Phrasen</h3>
-<div id="quickPhrases"></div>
-</div>
-</div>
-
 <!-- ADMIN PANEL -->
 <div id="adminPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
@@ -404,7 +353,7 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="info-card"><h3>💡 Hinweis</h3><p>Änderungen werden nur auf diesem Gerät gespeichert.<br>Bei Verspätungen hier die neuen Zeiten eingeben!</p></div>
 <div class="card"><h3>🇸🇪 Stockholm</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="stockholm-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="stockholm-departure" class="currency-input"></div></div>
 <div class="card"><h3>🇸🇪 Visby</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="visby-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="visby-departure" class="currency-input"></div></div>
-<div class="card"><h3>🇵🇱 Gdańsk</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="gdansk-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="gdansk-departure" class="currency-input"></div></div>
+<div class="card"><h3>🇵🇱 Danzig</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="gdansk-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="gdansk-departure" class="currency-input"></div></div>
 <div class="card"><h3>🇸🇪 Karlskrona</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="karlskrona-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="karlskrona-departure" class="currency-input"></div></div>
 <div class="card"><h3>🇩🇰 Kopenhagen</h3><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⚓ Ankunft:</label><input type="datetime-local" id="copenhagen-arrival" class="currency-input"></div><div style="margin:10px 0"><label style="display:block;margin:5px 0;font-weight:600">⛵ Abfahrt:</label><input type="datetime-local" id="copenhagen-departure" class="currency-input"></div></div>
 <div class="card">
@@ -419,9 +368,6 @@ input[type="datetime-local"]{font-size:1em!important}
 'use strict';
 const APP={
 currentPage:'home',
-currentLang:'sv',
-recognition:null,
-isListening:false,
 currencies:{sek:0.087,dkk:0.134,pln:0.232},
 defaultHarbors:{
 stockholm:{arrival:'2026-06-01T08:00:00',departure:'2026-06-01T18:00:00'},
@@ -449,7 +395,7 @@ visby:[
 {name:'Stora Torget',lat:57.6380,lon:18.2948,price:'10 SEK',rating:2,hours:'09:00-18:00'}
 ],
 gdansk:[
-{name:'Gdańsk Główny (Bahnhof)',lat:54.3560,lon:18.6446,price:'2 PLN',rating:2,hours:'05:00-23:00'},
+{name:'Danzig Główny (Bahnhof)',lat:54.3560,lon:18.6446,price:'2 PLN',rating:2,hours:'05:00-23:00'},
 {name:'Galeria Bałtycka',lat:54.3598,lon:18.6450,price:'Kostenlos',rating:3,hours:'09:00-21:00'}
 ],
 karlskrona:[
@@ -461,85 +407,15 @@ copenhagen:[
 {name:'Nyhavn',lat:55.6798,lon:12.5914,price:'5 DKK',rating:2,hours:'08:00-22:00'}
 ]
 },
-quickPhrases:{
-sv:{
-'Hallo':'Hej!',
-'Danke':'Tack!',
-'Bitte':'Varsågod',
-'Ja':'Ja',
-'Nein':'Nej',
-'Wie viel kostet das?':'Hur mycket kostar det?',
-'Wo ist die Toilette?':'Var är toaletten?',
-'Ein Bier, bitte':'En öl, tack',
-'Die Rechnung, bitte':'Notan, tack',
-'Hilfe!':'Hjälp!'
-},
-da:{
-'Hallo':'Hej!',
-'Danke':'Tak!',
-'Bitte':'Værsgo',
-'Ja':'Ja',
-'Nein':'Nej',
-'Wie viel kostet das?':'Hvor meget koster det?',
-'Wo ist die Toilette?':'Hvor er toilettet?',
-'Ein Bier, bitte':'En øl, tak',
-'Die Rechnung, bitte':'Regningen, tak',
-'Hilfe!':'Hjælp!'
-},
-pl:{
-'Hallo':'Dzień dobry',
-'Danke':'Dziękuję',
-'Bitte':'Proszę',
-'Ja':'Tak',
-'Nein':'Nie',
-'Wie viel kostet das?':'Ile to kosztuje?',
-'Wo ist die Toilette?':'Gdzie jest toaleta?',
-'Ein Bier, bitte':'Jedno piwo, proszę',
-'Die Rechnung, bitte':'Rachunek, proszę',
-'Hilfe!':'Pomoc!'
-},
-en:{
-'Hallo':'Hello!',
-'Danke':'Thank you!',
-'Bitte':'Please',
-'Ja':'Yes',
-'Nein':'No',
-'Wie viel kostet das?':'How much is this?',
-'Wo ist die Toilette?':'Where is the toilet?',
-'Ein Bier, bitte':'One beer, please',
-'Die Rechnung, bitte':'The bill, please',
-'Hilfe!':'Help!'
-}
-},
 
 init(){
-console.log('🚢 Kreuzfahrt Navigator v7.0 - KOMPLETT mit Englisch!');
+console.log('🚢 Kreuzfahrt Navigator v8.0 - Finalisiert OHNE Übersetzer!');
 this.loadSchedule();
 this.updateCountdowns();
 setInterval(()=>this.updateCountdowns(),60000);
 this.convertCurrency('sek');
 this.convertCurrency('dkk');
 this.convertCurrency('pln');
-this.initSpeechRecognition();
-},
-
-initSpeechRecognition(){
-if('webkitSpeechRecognition' in window){
-this.recognition=new webkitSpeechRecognition();
-this.recognition.continuous=false;
-this.recognition.interimResults=false;
-this.recognition.lang='de-DE';
-this.recognition.onresult=(e)=>{
-const transcript=e.results[0][0].transcript;
-document.getElementById('translatorInput').value=transcript;
-this.translateText();
-};
-this.recognition.onerror=(e)=>{
-document.getElementById('listeningStatus').textContent='❌ Fehler: '+e.error;
-this.isListening=false;
-document.getElementById('micBtn').classList.remove('listening');
-};
-}
 },
 
 loadSchedule(){
@@ -617,9 +493,6 @@ setTimeout(()=>this.loadWeather('stockholm'),100);
 }
 if(tool==='admin'){
 this.loadAdminForm();
-}
-if(tool==='translator'){
-this.loadQuickPhrases();
 }
 if(tool==='wc'){
 this.showWCsByHarbor('stockholm');
@@ -814,85 +687,6 @@ html+=`<small>🕐 ${wc.hours}</small>`;
 html+=`</div>`;
 });
 content.innerHTML=html;
-},
-
-selectLanguage(lang,event){
-this.currentLang=lang;
-document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-event.target.classList.add('active');
-this.loadQuickPhrases();
-},
-
-loadQuickPhrases(){
-const phrases=this.quickPhrases[this.currentLang];
-const container=document.getElementById('quickPhrases');
-let html='';
-Object.keys(phrases).forEach(de=>{
-html+=`<div class="phrase-item" onclick="APP.speakPhrase('${phrases[de]}','${this.currentLang}')">`;
-html+=`<div class="phrase-de">${de}</div>`;
-html+=`<div class="phrase-foreign">🔊 ${phrases[de]}</div>`;
-html+=`</div>`;
-});
-container.innerHTML=html;
-},
-
-startListening(){
-if(!this.recognition){
-alert('❌ Spracherkennung nicht verfügbar');
-return;
-}
-this.isListening=true;
-document.getElementById('micBtn').classList.add('listening');
-document.getElementById('listeningStatus').textContent='🎤 Höre zu...';
-this.recognition.start();
-},
-
-stopListening(){
-if(this.recognition && this.isListening){
-this.recognition.stop();
-this.isListening=false;
-document.getElementById('micBtn').classList.remove('listening');
-document.getElementById('listeningStatus').textContent='';
-}
-},
-
-async translateText(){
-const input=document.getElementById('translatorInput').value.trim();
-if(!input)return;
-const result=document.getElementById('translationResult');
-result.innerHTML='<div class="card"><h3>🔄 Übersetze...</h3></div>';
-const phrases=this.quickPhrases[this.currentLang];
-const match=Object.keys(phrases).find(k=>k.toLowerCase()===input.toLowerCase());
-if(match){
-const translation=phrases[match];
-result.innerHTML=`<div class="translation-box">
-<div style="color:#666">Deutsch:</div>
-<div style="font-size:1.2em;margin:10px 0">${input}</div>
-<div style="color:#666;margin-top:15px">${this.getLangName(this.currentLang)}:</div>
-<div class="translation-result">${translation}</div>
-<button class="quick-btn translator" style="width:100%;margin-top:15px" onclick="APP.speakPhrase('${translation}','${this.currentLang}')">🔊 Abspielen</button>
-</div>`;
-}else{
-result.innerHTML='<div class="card"><h3>ℹ️ Phrase nicht gefunden</h3><p>Nutze die Schnell-Phrasen unten oder probiere andere Formulierungen!</p></div>';
-}
-},
-
-speakPhrase(text,lang){
-const utterance=new SpeechSynthesisUtterance(text);
-if(lang==='sv')utterance.lang='sv-SE';
-else if(lang==='da')utterance.lang='da-DK';
-else if(lang==='pl')utterance.lang='pl-PL';
-else if(lang==='en')utterance.lang='en-GB';
-utterance.rate=0.8;
-speechSynthesis.speak(utterance);
-},
-
-getLangName(lang){
-if(lang==='sv')return'Schwedisch';
-if(lang==='da')return'Dänisch';
-if(lang==='pl')return'Polnisch';
-if(lang==='en')return'Englisch';
-return'Unbekannt';
 }
 };
 
