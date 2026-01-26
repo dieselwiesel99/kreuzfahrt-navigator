@@ -70,7 +70,8 @@ border:2px solid rgba(255,255,255,0.2);
 .restaurant-item strong{color:#00cc66;font-size:1.05em}
 .price-badge{display:inline-block;background:#00cc66;color:#fff;padding:4px 10px;border-radius:8px;font-size:0.85em;font-weight:700;margin-left:8px}
 .price-badge.mid{background:#ff9f1c}
-.phrase-item{background:#f0f7ff;padding:12px 15px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.phrase-item{background:#f0f7ff;padding:12px 15px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background 0.2s}
+.phrase-item:active{background:#e0f0ff}
 .phrase-de{font-weight:700;color:#333}
 .phrase-foreign{color:#0066cc;font-weight:600;font-size:1.05em}
 .phrase-pronounce{color:#666;font-size:0.85em;font-style:italic}
@@ -78,7 +79,7 @@ border:2px solid rgba(255,255,255,0.2);
 .currency-input:focus{border-color:#0066cc;outline:none}
 .currency-result{background:#f0f7ff;padding:20px;border-radius:15px;text-align:center;margin:15px 0}
 .currency-result .big{font-size:2.2em;font-weight:900;color:#0066cc;margin:10px 0}
-.tab-buttons{display:flex;gap:10px;margin-bottom:15px;overflow-x:auto}
+.tab-buttons{display:flex;gap:10px;margin-bottom:15px;overflow-x:auto;padding-bottom:5px}
 .tab-btn{background:rgba(255,255,255,0.2);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s}
 .tab-btn.active{background:#fff;color:#0066cc;border-color:#fff}
 .tab-content{display:none}
@@ -98,13 +99,13 @@ border:2px solid rgba(255,255,255,0.2);
 @keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .translation-box{background:#f0f7ff;padding:20px;border-radius:15px;margin:15px 0;min-height:100px}
 .translation-result{font-size:1.4em;font-weight:700;color:#0066cc;margin:10px 0}
-.lang-selector{display:flex;gap:10px;margin:15px 0;justify-content:center}
-.lang-btn{background:rgba(255,255,255,0.3);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:10px 20px;border-radius:12px;cursor:pointer;transition:all 0.2s}
+.lang-selector{display:flex;gap:10px;margin:15px 0;justify-content:center;flex-wrap:wrap}
+.lang-btn{background:rgba(255,255,255,0.3);color:#fff;border:2px solid rgba(255,255,255,0.3);padding:10px 20px;border-radius:12px;cursor:pointer;transition:all 0.2s;font-size:0.9em}
 .lang-btn.active{background:#fff;color:#0066cc;border-color:#fff}
 input[type="datetime-local"]{font-size:1em!important}
 .search-input{width:100%;padding:15px;border:3px solid #e0e0e0;border-radius:12px;font-size:1.1em;margin:10px 0}
 .search-input:focus{border-color:#0066cc;outline:none}
-@media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}}
+@media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}.lang-btn{font-size:0.8em;padding:8px 12px}}
 </style>
 </head>
 <body>
@@ -152,7 +153,7 @@ input[type="datetime-local"]{font-size:1em!important}
 
 <div class="harbor-card future" onclick="APP.showHarbor('gdansk')">
 <div class="harbor-header">
-<div class="harbor-name"><span class="flag">🇵🇱</span>Gdańsk</div>
+<div class="harbor-name"><span class="flag">🇵🇱</span>Danzig</div>
 <div class="harbor-date">03. Juni</div>
 </div>
 <div class="harbor-time">
@@ -270,12 +271,12 @@ input[type="datetime-local"]{font-size:1em!important}
 <!-- GDANSK PAGE -->
 <div id="gdanskPage" class="page">
 <button class="back-btn" onclick="APP.showHome()">← Zurück</button>
-<div class="header"><div class="ship-icon">🇵🇱</div><h1>Gdańsk/Gdingen</h1><div class="subtitle">03. Juni • 10:00 - 20:00 Uhr</div><div class="countdown" id="countdown-detail-gdansk" style="margin-top:10px">Lädt...</div></div>
-<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d"><h3>⚠️ WICHTIG!</h3><p>Terminal ist in <strong>Gdynia (Gdingen)</strong>!<br>Altstadt ist in <strong>Gdańsk</strong> (20 km entfernt)</p></div>
-<div class="card"><h3>🚆 Von Gdynia → Gdańsk</h3><div class="route-step"><span class="step-number">1</span><strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br><small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small></div><div class="route-step"><span class="step-number">2</span><strong>SKM-Zug (S-Bahn) → Gdańsk Główny</strong><br><small>20-30 Min • Alle 10-15 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>10 Min zu Fuß → Rechtstadt (Altstadt)</strong><br><small>✅ Angekommen!</small></div><div class="info-card">💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal</div></div>
-<div class="card"><h3>🏛️ Gdańsk Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Rechtstadt (Główne Miasto)</strong><p>Historische Altstadt mit bunten Häusern</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Marienkirche</strong><p>Größte Backsteinkirche der Welt</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 45 Min</span><span class="meta-item">💰 5 PLN (~1€)</span></div></div><div class="attraction-item"><strong>Krantor (Żuraw)</strong><p>Mittelalterlicher Hafenkran, Wahrzeichen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 10 PLN (~2€)</span></div></div></div>
+<div class="header"><div class="ship-icon">🇵🇱</div><h1>Danzig/Gdingen</h1><div class="subtitle">03. Juni • 10:00 - 20:00 Uhr</div><div class="countdown" id="countdown-detail-gdansk" style="margin-top:10px">Lädt...</div></div>
+<div class="info-card" style="background:linear-gradient(135deg,#ffd93d,#ff9f1c);border-color:#ffd93d"><h3>⚠️ WICHTIG!</h3><p>Terminal ist in <strong>Gdynia (Gdingen)</strong>!<br>Altstadt ist in <strong>Danzig</strong> (20 km entfernt)</p></div>
+<div class="card"><h3>🚆 Von Gdynia → Danzig</h3><div class="route-step"><span class="step-number">1</span><strong>Terminal → Gdynia Główna (Hauptbahnhof)</strong><br><small>🚶 10-15 Min zu Fuß ODER Taxi ~3€</small></div><div class="route-step"><span class="step-number">2</span><strong>SKM-Zug (S-Bahn) → Danzig Główny</strong><br><small>20-30 Min • Alle 10-15 Min</small></div><div class="route-step"><span class="step-number">3</span><strong>10 Min zu Fuß → Rechtstadt (Altstadt)</strong><br><small>✅ Angekommen!</small></div><div class="info-card">💰 <strong>Ticket:</strong> ~4 PLN (~1€)<br>🎫 <strong>Kaufen:</strong> Automat im Bahnhof<br>⏱️ <strong>Gesamt:</strong> ~45 Min vom Terminal</div></div>
+<div class="card"><h3>🏛️ Danzig Top-Sehenswürdigkeiten</h3><div class="attraction-item"><strong>Rechtstadt (Główne Miasto)</strong><p>Historische Altstadt mit bunten Häusern</p><div class="attraction-meta"><span class="meta-item">🚶 Zentrum</span><span class="meta-item">⏱️ 2-3 Std</span><span class="meta-item">💰 Kostenlos</span></div></div><div class="attraction-item"><strong>Marienkirche</strong><p>Größte Backsteinkirche der Welt</p><div class="attraction-meta"><span class="meta-item">🚶 5 Min</span><span class="meta-item">⏱️ 45 Min</span><span class="meta-item">💰 5 PLN (~1€)</span></div></div><div class="attraction-item"><strong>Krantor (Żuraw)</strong><p>Mittelalterlicher Hafenkran, Wahrzeichen</p><div class="attraction-meta"><span class="meta-item">🚶 10 Min</span><span class="meta-item">⏱️ 30 Min</span><span class="meta-item">💰 10 PLN (~2€)</span></div></div></div>
 <div class="card"><h3>🍽️ Restaurants & Cafés</h3><div class="restaurant-item"><strong>Pierogarnia Mandu</strong><span class="price-badge">€</span><p>Polnische Pierogi (Teigtaschen)</p><small>~8€ • ⭐⭐⭐⭐⭐</small></div><div class="restaurant-item"><strong>Gdański Bowke</strong><span class="price-badge mid">€€</span><p>Traditionell polnische Küche</p><small>~15€ • ⭐⭐⭐⭐</small></div></div>
-<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Gdańsk Główny (Bahnhof)</strong><p>📍 Am Bahnhof • 💰 2 PLN • <span class="wc-rating">⭐⭐</span></p></div></div>
+<div class="card"><h3>🚻 Öffentliche Toiletten</h3><div class="wc-item"><strong>Danzig Główny (Bahnhof)</strong><p>📍 Am Bahnhof • 💰 2 PLN • <span class="wc-rating">⭐⭐</span></p></div></div>
 <div class="card"><h3>🗣️ Wichtige Phrasen (Polnisch)</h3><div class="phrase-item"><div><div class="phrase-de">Hallo</div><div class="phrase-pronounce">(chen dob-ry)</div></div><div class="phrase-foreign">Dzień dobry</div></div><div class="phrase-item"><div><div class="phrase-de">Danke</div><div class="phrase-pronounce">(jen-ku-ye)</div></div><div class="phrase-foreign">Dziękuję</div></div><div class="phrase-item"><div><div class="phrase-de">Wie viel?</div><div class="phrase-pronounce">(ee-le)</div></div><div class="phrase-foreign">Ile?</div></div><div class="phrase-item"><div><div class="phrase-de">Ein Bier, bitte</div></div><div class="phrase-foreign">Jedno piwo, proszę</div></div></div>
 <div class="info-card"><h3>⏰ Rückkehr-Empfehlung</h3><p>🚢 Abfahrt: 20:00 Uhr<br>🚆 Letzter Zug: ~19:00<br>⚠️ Spätestens 18:30 losfahren</p></div>
 </div>
@@ -328,7 +329,7 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="tab-buttons">
 <button class="tab-btn active" onclick="APP.loadWeather('stockholm',event)">🇸🇪 Stockholm</button>
 <button class="tab-btn" onclick="APP.loadWeather('visby',event)">🇸🇪 Visby</button>
-<button class="tab-btn" onclick="APP.loadWeather('gdansk',event)">🇵🇱 Gdańsk</button>
+<button class="tab-btn" onclick="APP.loadWeather('gdansk',event)">🇵🇱 Danzig</button>
 <button class="tab-btn" onclick="APP.loadWeather('karlskrona',event)">🇸🇪 Karlskrona</button>
 <button class="tab-btn" onclick="APP.loadWeather('copenhagen',event)">🇩🇰 Kopenhagen</button>
 </div>
@@ -350,7 +351,7 @@ input[type="datetime-local"]{font-size:1em!important}
 <div class="tab-buttons">
 <button class="tab-btn active" onclick="APP.showWCsByHarbor('stockholm',event)">Stockholm</button>
 <button class="tab-btn" onclick="APP.showWCsByHarbor('visby',event)">Visby</button>
-<button class="tab-btn" onclick="APP.showWCsByHarbor('gdansk',event)">Gdańsk</button>
+<button class="tab-btn" onclick="APP.showWCsByHarbor('gdansk',event)">Danzig</button>
 <button class="tab-btn" onclick="APP.showWCsByHarbor('karlskrona',event)">Karlskrona</button>
 <button class="tab-btn" onclick="APP.showWCsByHarbor('copenhagen',event)">Kopenhagen</button>
 </div>
@@ -369,6 +370,7 @@ input[type="datetime-local"]{font-size:1em!important}
 <button class="lang-btn active" onclick="APP.selectLanguage('sv',event)">🇸🇪 Schwedisch</button>
 <button class="lang-btn" onclick="APP.selectLanguage('da',event)">🇩🇰 Dänisch</button>
 <button class="lang-btn" onclick="APP.selectLanguage('pl',event)">🇵🇱 Polnisch</button>
+<button class="lang-btn" onclick="APP.selectLanguage('en',event)">🇬🇧 Englisch</button>
 </div>
 </div>
 
@@ -495,11 +497,23 @@ pl:{
 'Ein Bier, bitte':'Jedno piwo, proszę',
 'Die Rechnung, bitte':'Rachunek, proszę',
 'Hilfe!':'Pomoc!'
+},
+en:{
+'Hallo':'Hello!',
+'Danke':'Thank you!',
+'Bitte':'Please',
+'Ja':'Yes',
+'Nein':'No',
+'Wie viel kostet das?':'How much is this?',
+'Wo ist die Toilette?':'Where is the toilet?',
+'Ein Bier, bitte':'One beer, please',
+'Die Rechnung, bitte':'The bill, please',
+'Hilfe!':'Help!'
 }
 },
 
 init(){
-console.log('🚢 Kreuzfahrt Navigator v6.0 - KOMPLETT mit WC-Finder & Übersetzer!');
+console.log('🚢 Kreuzfahrt Navigator v7.0 - KOMPLETT mit Englisch!');
 this.loadSchedule();
 this.updateCountdowns();
 setInterval(()=>this.updateCountdowns(),60000);
@@ -865,13 +879,20 @@ result.innerHTML='<div class="card"><h3>ℹ️ Phrase nicht gefunden</h3><p>Nutz
 
 speakPhrase(text,lang){
 const utterance=new SpeechSynthesisUtterance(text);
-utterance.lang=lang===  'sv'?'sv-SE':lang==='da'?'da-DK':'pl-PL';
+if(lang==='sv')utterance.lang='sv-SE';
+else if(lang==='da')utterance.lang='da-DK';
+else if(lang==='pl')utterance.lang='pl-PL';
+else if(lang==='en')utterance.lang='en-GB';
 utterance.rate=0.8;
 speechSynthesis.speak(utterance);
 },
 
 getLangName(lang){
-return lang==='sv'?'Schwedisch':lang==='da'?'Dänisch':'Polnisch';
+if(lang==='sv')return'Schwedisch';
+if(lang==='da')return'Dänisch';
+if(lang==='pl')return'Polnisch';
+if(lang==='en')return'Englisch';
+return'Unbekannt';
 }
 };
 
