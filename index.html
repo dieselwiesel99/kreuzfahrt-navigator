@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>Kreuzfahrt Navigator - Ostsee 2026</title>
-    <meta name="description" content="Dein persönlicher Navigator für die Ostsee-Kreuzfahrt 2026">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Kreuzfahrt">
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Kreuzfahrt Navigator - Ostsee 2026</title>
+<meta name="description" content="Dein persönlicher Navigator für die Ostsee-Kreuzfahrt 2026">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kreuzfahrt">
+<meta name="theme-color" content="#0066cc">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" type="image/png" href="icon.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -66,8 +66,14 @@ border:2px solid rgba(255,255,255,0.2);
 .attraction-item strong{color:#0066cc;font-size:1.1em;display:block;margin-bottom:5px}
 .attraction-meta{display:flex;gap:15px;margin-top:8px;font-size:0.9em;color:#666;flex-wrap:wrap}
 .meta-item{display:flex;align-items:center;gap:4px}
-.route-step{background:#f0f7ff;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #0066cc}
-.route-step .step-number{background:#0066cc;color:#fff;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9em;margin-right:10px}
+.route-step{background:#f0f7ff;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #0066cc;cursor:pointer;transition:all 0.2s;position:relative}
+.route-step:hover{background:#e0f0ff;transform:translateX(5px)}
+.route-step:active{transform:scale(0.98)}
+.route-step .step-number{background:#0066cc;color:#fff;width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:0.95em;margin-right:12px}
+.route-step .step-text{display:inline-block;vertical-align:middle;width:calc(100% - 80px)}
+.route-step .nav-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:1.3em;color:#0066cc}
+.route-all-btn{background:linear-gradient(135deg,#00cc66,#00994d);color:#fff;border:none;padding:18px;border-radius:15px;font-size:1.1em;font-weight:800;width:100%;margin:15px 0;cursor:pointer;transition:transform 0.2s}
+.route-all-btn:active{transform:scale(0.98)}
 .restaurant-item{background:#f9fafb;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #00cc66}
 .restaurant-item strong{color:#00cc66;font-size:1.05em}
 .price-badge{display:inline-block;background:#00cc66;color:#fff;padding:4px 10px;border-radius:8px;font-size:0.85em;font-weight:700;margin-left:8px}
@@ -103,491 +109,1094 @@ border:2px solid rgba(255,255,255,0.2);
 .big-countdown.urgent{background:linear-gradient(135deg,#ff0000,#cc0000);animation:urgentPulse 1s infinite}
 .big-countdown .time{font-size:3em;font-weight:900;margin:10px 0}
 .big-countdown .label{font-size:1.2em;opacity:0.9}
-.terminal-btn{background:#fff;color:#0066cc;border:2px solid #0066cc;padding:15px;margin:10px 0;border-radius:12px;font-weight:700;cursor:pointer;text-align:left;transition:all 0.2s;width:100%}
-.terminal-btn:hover{background:#f0f7ff}
-.terminal-btn:active{transform:scale(0.98)}
-.terminal-info{background:#e8f5e9;padding:15px;border-radius:12px;margin:10px 0;border-left:4px solid #2e7d32}
-.terminal-info strong{color:#2e7d32;font-size:1.1em;display:block;margin-bottom:8px}
 input[type="datetime-local"]{font-size:1em!important}
 @media(max-width:480px){.header h1{font-size:1.7em}.harbor-name{font-size:1.2em}}
 </style>
 </head>
 <body>
-
 <div class="container">
 
 <!-- HOME PAGE -->
 <div id="homePage" class="page active">
-    <div class="header">
-        <div class="ship-icon">🚢</div>
-        <h1>Kreuzfahrt Navigator</h1>
-        <div class="subtitle">Ostsee 2026 • 30. Mai - 6. Juni</div>
-    </div>
+<div class="header">
+<div class="ship-icon">🚢</div>
+<h1>Kreuzfahrt Navigator</h1>
+<div class="subtitle">Ostsee 2026 • 30. Mai - 6. Juni</div>
+</div>
 
-    <button class="quick-btn navigation" onclick="APP.showBackToShip()" style="width:100%;font-size:1.1em;padding:15px;margin-bottom:15px;">
-        🧭 Zurück zum Schiff
-    </button>
+<div style="margin-bottom:15px">
+<button class="quick-btn navigation" style="width:100%;padding:18px;font-size:1.1em" onclick="APP.showTool('navigate')">🧭 Zurück zum Schiff</button>
+</div>
 
-    <div class="info-card">
-        <h3>🎯 Deine Route</h3>
-        <div style="font-size:0.95em;opacity:0.9">5 Häfen • 4 Länder • 8 Tage</div>
-    </div>
+<div class="info-card">
+<h3>🎯 Deine Route</h3>
+<p>5 Häfen • 4 Länder • 8 Tage</p>
+</div>
 
-    <div class="harbor-list">
+<div class="harbor-list">
+<div class="harbor-card" onclick="APP.showHarbor('stockholm')">
+<div class="harbor-header">
+<div class="harbor-name"><span class="flag">🇸🇪</span>Stockholm</div>
+<div class="harbor-date">01. Juni</div>
+</div>
+<div class="harbor-time">
+<div class="time-info">⚓ <span id="stockholm-arr-time">08:00</span></div>
+<div class="time-info">⛵ <span id="stockholm-dep-time">18:00</span></div>
+<div class="time-info">⏱️ 10 Std</div>
+</div>
+<div class="countdown" id="countdown-stockholm">Lädt...</div>
+</div>
 
-        <div class="harbor-card" onclick="APP.showHarbor('stockholm')">
-            <div class="harbor-header">
-                <div class="harbor-name"><span class="flag">🇸🇪</span> Stockholm</div>
-                <div class="harbor-date">01. Juni</div>
-            </div>
-            <div class="harbor-time">
-                <div class="time-info">⚓ <span id="stockholm-arr-time">08:00</span></div>
-                <div class="time-info">⛵ <span id="stockholm-dep-time">18:00</span></div>
-                <div class="time-info">⏱️ 10 Std</div>
-            </div>
-            <div id="countdown-stockholm" class="countdown">Lädt...</div>
-        </div>
+<div class="harbor-card future" onclick="APP.showHarbor('visby')">
+<div class="harbor-header">
+<div class="harbor-name"><span class="flag">🇸🇪</span>Visby</div>
+<div class="harbor-date">02. Juni</div>
+</div>
+<div class="harbor-time">
+<div class="time-info">⚓ <span id="visby-arr-time">10:00</span></div>
+<div class="time-info">⛵ <span id="visby-dep-time">19:00</span></div>
+<div class="time-info">⏱️ 9 Std</div>
+</div>
+<div class="countdown" id="countdown-visby">Lädt...</div>
+</div>
 
-        <div class="harbor-card" onclick="APP.showHarbor('visby')">
-            <div class="harbor-header">
-                <div class="harbor-name"><span class="flag">🇸🇪</span> Visby</div>
-                <div class="harbor-date">02. Juni</div>
-            </div>
-            <div class="harbor-time">
-                <div class="time-info">⚓ <span id="visby-arr-time">10:00</span></div>
-                <div class="time-info">⛵ <span id="visby-dep-time">19:00</span></div>
-                <div class="time-info">⏱️ 9 Std</div>
-            </div>
-            <div id="countdown-visby" class="countdown">Lädt...</div>
-        </div>
+<div class="harbor-card future" onclick="APP.showHarbor('gdansk')">
+<div class="harbor-header">
+<div class="harbor-name"><span class="flag">🇵🇱</span>Danzig</div>
+<div class="harbor-date">03. Juni</div>
+</div>
+<div class="harbor-time">
+<div class="time-info">⚓ <span id="gdansk-arr-time">10:00</span></div>
+<div class="time-info">⛵ <span id="gdansk-dep-time">20:00</span></div>
+<div class="time-info">⏱️ 10 Std</div>
+</div>
+<div class="countdown" id="countdown-gdansk">Lädt...</div>
+</div>
 
-        <div class="harbor-card" onclick="APP.showHarbor('gdansk')">
-            <div class="harbor-header">
-                <div class="harbor-name"><span class="flag">🇵🇱</span> Danzig</div>
-                <div class="harbor-date">03. Juni</div>
-            </div>
-            <div class="harbor-time">
-                <div class="time-info">⚓ <span id="gdansk-arr-time">10:00</span></div>
-                <div class="time-info">⛵ <span id="gdansk-dep-time">20:00</span></div>
-                <div class="time-info">⏱️ 10 Std</div>
-            </div>
-            <div id="countdown-gdansk" class="countdown">Lädt...</div>
-        </div>
+<div class="harbor-card future" onclick="APP.showHarbor('karlskrona')">
+<div class="harbor-header">
+<div class="harbor-name"><span class="flag">🇸🇪</span>Karlskrona</div>
+<div class="harbor-date">04. Juni</div>
+</div>
+<div class="harbor-time">
+<div class="time-info">⚓ <span id="karlskrona-arr-time">08:00</span></div>
+<div class="time-info">⛵ <span id="karlskrona-dep-time">18:00</span></div>
+<div class="time-info">⏱️ 10 Std</div>
+</div>
+<div class="countdown" id="countdown-karlskrona">Lädt...</div>
+</div>
 
-        <div class="harbor-card" onclick="APP.showHarbor('karlskrona')">
-            <div class="harbor-header">
-                <div class="harbor-name"><span class="flag">🇸🇪</span> Karlskrona</div>
-                <div class="harbor-date">04. Juni</div>
-            </div>
-            <div class="harbor-time">
-                <div class="time-info">⚓ <span id="karlskrona-arr-time">08:00</span></div>
-                <div class="time-info">⛵ <span id="karlskrona-dep-time">18:00</span></div>
-                <div class="time-info">⏱️ 10 Std</div>
-            </div>
-            <div id="countdown-karlskrona" class="countdown">Lädt...</div>
-        </div>
+<div class="harbor-card future" onclick="APP.showHarbor('copenhagen')">
+<div class="harbor-header">
+<div class="harbor-name"><span class="flag">🇩🇰</span>Kopenhagen</div>
+<div class="harbor-date">05. Juni</div>
+</div>
+<div class="harbor-time">
+<div class="time-info">⚓ <span id="copenhagen-arr-time">14:00</span></div>
+<div class="time-info">⛵ <span id="copenhagen-dep-time">21:00</span></div>
+<div class="time-info">⏱️ 7 Std ⚠️</div>
+</div>
+<div class="countdown" id="countdown-copenhagen">Lädt...</div>
+</div>
+</div>
 
-        <div class="harbor-card" onclick="APP.showHarbor('copenhagen')">
-            <div class="harbor-header">
-                <div class="harbor-name"><span class="flag">🇩🇰</span> Kopenhagen</div>
-                <div class="harbor-date">05. Juni</div>
-            </div>
-            <div class="harbor-time">
-                <div class="time-info">⚓ <span id="copenhagen-arr-time">14:00</span></div>
-                <div class="time-info">⛵ <span id="copenhagen-dep-time">21:00</span></div>
-                <div class="time-info">⏱️ 7 Std ⚠️</div>
-            </div>
-            <div id="countdown-copenhagen" class="countdown">Lädt...</div>
-        </div>
-    </div>
+<div class="quick-actions">
+<button class="quick-btn weather" onclick="APP.showTool('weather')">🌦️ Wetter</button>
+<button class="quick-btn currency" onclick="APP.showTool('currency')">💱 Währung</button>
+<button class="quick-btn wc" onclick="APP.showTool('wc')">🚻 WC-Finder</button>
+</div>
 
-    <div class="quick-actions">
-        <button class="quick-btn weather" onclick="APP.showTool('weather')">🌦️ Wetter</button>
-        <button class="quick-btn currency" onclick="APP.showTool('currency')">💱 Währung</button>
-        <button class="quick-btn wc" onclick="APP.showTool('wc')">🚻 WC-Finder</button>
-    </div>
+<div style="margin-top:15px">
+<button class="quick-btn admin" style="width:100%" onclick="APP.showTool('admin')">⚙️ Zeiten anpassen</button>
+</div>
 
-    <button class="quick-btn admin" onclick="APP.showTool('admin')" style="width:100%;margin-top:10px;">
-        ⚙️ Zeiten anpassen
-    </button>
-
-    <div class="info-card">
-        <h3>💡 Quick-Tipps</h3>
-        <div style="font-size:0.9em;line-height:1.7">
-• Spätestens 1 Std vor Abfahrt zurück<br>
+<div class="info-card">
+<h3>💡 Quick-Tipps</h3>
+<p>• Spätestens 1 Std vor Abfahrt zurück<br>
 • Öffentliche Verkehrsmittel vorher checken<br>
 • Notfall: 112 funktioniert überall<br>
-• Übersetzungen: Siri oder Google Translate nutzen
-        </div>
-    </div>
+• Übersetzungen: Siri oder Google Translate nutzen</p>
+</div>
+</div>
+<!-- HARBOR DETAIL PAGE -->
+<div id="harborPage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon" id="harbor-flag">🏴</div>
+<h1 id="harbor-title">Hafen</h1>
+<div class="subtitle" id="harbor-subtitle">Loading...</div>
 </div>
 
-<!-- ZURÜCK ZUM SCHIFF PAGE (GPS) -->
-<div id="backToShipPage" class="page">
-    <button class="back-btn" onclick="APP.showHome()">
-        <i class="fas fa-arrow-left"></i> Zurück
-    </button>
-
-    <div class="header">
-        <div style="font-size:2em;margin-bottom:10px">🧭</div>
-        <h1>Zurück zum Schiff</h1>
-        <div class="subtitle" id="backToShipSubtitle">GPS-Terminal-Erkennung</div>
-    </div>
-
-    <div id="backToShipCountdown"></div>
-
-    <div id="backToShipContent">
-        <div style="text-align:center;padding:40px;">
-            <i class="fas fa-spinner fa-spin" style="font-size:3em;color:#fff;"></i>
-            <p style="margin-top:20px;font-size:1.2em;">Suche Terminal via GPS...</p>
-        </div>
-    </div>
+<div class="big-countdown" id="harbor-big-countdown">
+<div class="label">Noch</div>
+<div class="time" id="harbor-countdown-time">--</div>
+<div class="label" id="harbor-countdown-label">bis zur Ankunft</div>
 </div>
 
-<!-- Rest of the pages remain the same as before -->
-
+<div class="tab-buttons">
+<button class="tab-btn active" onclick="APP.switchTab('info')">ℹ️ Info</button>
+<button class="tab-btn" onclick="APP.switchTab('attractions')">🎯 Highlights</button>
+<button class="tab-btn" onclick="APP.switchTab('route')">🗺️ Route</button>
+<button class="tab-btn" onclick="APP.switchTab('food')">🍽️ Essen</button>
+<button class="tab-btn" onclick="APP.switchTab('phrases')">💬 Sprache</button>
 </div>
 
+<div id="tab-info" class="tab-content active">
+<div class="card">
+<h3>📍 Terminal-Info</h3>
+<div id="terminal-info">Lädt...</div>
+</div>
+<div class="card">
+<h3>🎫 Tickets & Pässe</h3>
+<div id="ticket-info">Lädt...</div>
+</div>
+</div>
+
+<div id="tab-attractions" class="tab-content">
+<div class="card">
+<h3>🎯 Top Sehenswürdigkeiten</h3>
+<div id="attractions-list">Lädt...</div>
+</div>
+</div>
+
+<div id="tab-route" class="tab-content">
+<div class="card">
+<h3>🗺️ Optimale Route</h3>
+<button class="route-all-btn" id="route-all-btn" onclick="APP.openFullRoute()">🚶 GESAMTE ROUTE STARTEN</button>
+<div id="route-list">Lädt...</div>
+</div>
+</div>
+
+<div id="tab-food" class="tab-content">
+<div class="card">
+<h3>🍽️ Restaurant-Empfehlungen</h3>
+<div id="food-list">Lädt...</div>
+</div>
+</div>
+
+<div id="tab-phrases" class="tab-content">
+<div class="card">
+<h3>💬 Wichtige Phrasen</h3>
+<div id="phrases-list">Lädt...</div>
+</div>
+</div>
+</div>
+
+<!-- WEATHER TOOL -->
+<div id="weatherPage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon">🌦️</div>
+<h1>Wetter-Vorhersage</h1>
+<div class="subtitle">Live-Wetter für alle Häfen</div>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Stockholm (01. Juni)</h3>
+<p style="margin:15px 0">Klicke auf den Button für aktuelle Wettervorhersage:</p>
+<button class="quick-btn weather" style="width:100%;padding:15px;font-size:1.1em" onclick="window.open('https://www.yr.no/en/forecast/daily-table/2-2673730/Sweden/Stockholm/Stockholm/Stockholm','_blank')">🌤️ Live-Wetter Stockholm</button>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Visby (02. Juni)</h3>
+<p style="margin:15px 0">Klicke auf den Button für aktuelle Wettervorhersage:</p>
+<button class="quick-btn weather" style="width:100%;padding:15px;font-size:1.1em" onclick="window.open('https://www.yr.no/en/forecast/daily-table/2-2661169/Sweden/Gotland/Visby/Visby','_blank')">🌤️ Live-Wetter Visby</button>
+</div>
+
+<div class="card">
+<h3>🇵🇱 Danzig (03. Juni)</h3>
+<p style="margin:15px 0">Klicke auf den Button für aktuelle Wettervorhersage:</p>
+<button class="quick-btn weather" style="width:100%;padding:15px;font-size:1.1em" onclick="window.open('https://www.yr.no/en/forecast/daily-table/2-3099434/Poland/Pomerania/Gdańsk','_blank')">🌤️ Live-Wetter Danzig</button>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Karlskrona (04. Juni)</h3>
+<p style="margin:15px 0">Klicke auf den Button für aktuelle Wettervorhersage:</p>
+<button class="quick-btn weather" style="width:100%;padding:15px;font-size:1.1em" onclick="window.open('https://www.yr.no/en/forecast/daily-table/2-2702261/Sweden/Blekinge/Karlskrona/Karlskrona','_blank')">🌤️ Live-Wetter Karlskrona</button>
+</div>
+
+<div class="card">
+<h3>🇩🇰 Kopenhagen (05. Juni)</h3>
+<p style="margin:15px 0">Klicke auf den Button für aktuelle Wettervorhersage:</p>
+<button class="quick-btn weather" style="width:100%;padding:15px;font-size:1.1em" onclick="window.open('https://www.yr.no/en/forecast/daily-table/2-2618425/Denmark/Capital%20Region/Copenhagen/Copenhagen','_blank')">🌤️ Live-Wetter Kopenhagen</button>
+</div>
+
+<div class="info-card">
+<h3>💡 Wetter-Tipps</h3>
+<p>• yr.no = Norwegischer Wetterdienst (sehr genau!)<br>
+• Vorhersage bis 10 Tage im Voraus<br>
+• Regenjacke einpacken!<br>
+• In Skandinavien ändert sich Wetter schnell</p>
+</div>
+</div>
+<!-- CURRENCY TOOL -->
+<div id="currencyPage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon">💱</div>
+<h1>Währungsrechner</h1>
+<div class="subtitle">SEK, DKK, PLN → EUR</div>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Schwedische Kronen (SEK)</h3>
+<input type="number" class="currency-input" id="sek-input" placeholder="Betrag in SEK" oninput="APP.convertCurrency('sek')">
+<div class="currency-result" id="sek-result">
+<div>≈ <span class="big" id="sek-eur">0.00</span> EUR</div>
+<div style="font-size:0.9em;color:#666;margin-top:8px">Kurs: 1 SEK = 0.088 EUR</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🇩🇰 Dänische Kronen (DKK)</h3>
+<input type="number" class="currency-input" id="dkk-input" placeholder="Betrag in DKK" oninput="APP.convertCurrency('dkk')">
+<div class="currency-result" id="dkk-result">
+<div>≈ <span class="big" id="dkk-eur">0.00</span> EUR</div>
+<div style="font-size:0.9em;color:#666;margin-top:8px">Kurs: 1 DKK = 0.134 EUR</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🇵🇱 Polnische Zloty (PLN)</h3>
+<input type="number" class="currency-input" id="pln-input" placeholder="Betrag in PLN" oninput="APP.convertCurrency('pln')">
+<div class="currency-result" id="pln-result">
+<div>≈ <span class="big" id="pln-eur">0.00</span> EUR</div>
+<div style="font-size:0.9em;color:#666;margin-top:8px">Kurs: 1 PLN = 0.23 EUR</div>
+</div>
+</div>
+
+<div class="info-card">
+<h3>💡 Zahlungs-Tipps</h3>
+<p>• Kartenzahlung fast überall möglich<br>
+• Schweden/Dänemark: Bargeld kaum nötig<br>
+• Polen: Etwas Bargeld mitnehmen<br>
+• Trinkgeld: 10% üblich</p>
+</div>
+</div>
+
+<!-- WC FINDER TOOL -->
+<div id="wcPage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon">🚻</div>
+<h1>WC-Finder</h1>
+<div class="subtitle">Saubere Toiletten in allen Häfen</div>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff;text-align:center">
+<h3 style="color:#fff;font-size:1.4em;margin-bottom:15px">🎯 WC IN DEINER NÄHE FINDEN</h3>
+<p style="margin-bottom:20px;font-size:1.05em">Finde automatisch die nächsten Toiletten basierend auf deinem Standort!</p>
+<button class="route-all-btn" style="background:#fff;color:#4facfe;border:none" onclick="APP.findNearbyToilets()">📍 NÄCHSTE WCs ANZEIGEN</button>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Stockholm - Top WCs</h3>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=59.3293,18.0686&query_place_id=Stockholm+Centralstation','_blank')" style="cursor:pointer">
+<strong>🏢 Hauptbahnhof (Centralstation)</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Modern, sehr sauber • ~2€ Gebühr</p>
+<div class="wc-distance">5 Min vom Terminal</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=59.3251,18.0719&query_place_id=Gamla+Stan+Stockholm','_blank')" style="cursor:pointer">
+<strong>🏛️ Gamla Stan (Altstadt)</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Öffentliche WCs, gut gepflegt • 1€</p>
+<div class="wc-distance">15 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=59.3333,18.0292&query_place_id=Westfield+Mall+Stockholm','_blank')" style="cursor:pointer">
+<strong>🛍️ Westfield Mall</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Kostenlos, top sauber</p>
+<div class="wc-distance">10 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<button class="quick-btn wc" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/search/toilet+near+Stockholm+Stadsgården/@59.3178,18.0894,15z','_blank')">🔍 Alle WCs in Stockholm</button>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Visby - Top WCs</h3>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=57.6381,18.2945&query_place_id=Gotlands+Museum','_blank')" style="cursor:pointer">
+<strong>🏛️ Gotlands Museum</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Sauber, kostenlos mit Ticket</p>
+<div class="wc-distance">10 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=57.6376,18.2958&query_place_id=McDonalds+Visby','_blank')" style="cursor:pointer">
+<strong>🍔 McDonald's Zentrum</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Kostenlos, gepflegt</p>
+<div class="wc-distance">8 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<button class="quick-btn wc" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/search/toilet+near+Visby/@57.6348,18.2948,15z','_blank')">🔍 Alle WCs in Visby</button>
+</div>
+
+<div class="card">
+<h3>🇵🇱 Danzig - Top WCs</h3>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=54.3561,18.6458&query_place_id=Gdansk+Glowny+Station','_blank')" style="cursor:pointer">
+<strong>🏢 Hauptbahnhof Gdańsk</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Modern, sauber • ~1€</p>
+<div class="wc-distance">Direkt am Terminal</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=54.3599,18.6486&query_place_id=Forum+Gdansk','_blank')" style="cursor:pointer">
+<strong>🛍️ Forum Gdańsk (Mall)</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Top sauber, kostenlos</p>
+<div class="wc-distance">15 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=54.3490,18.6537&query_place_id=Artushof+Gdansk','_blank')" style="cursor:pointer">
+<strong>🏛️ Artushof (Altstadt)</strong>
+<div class="wc-rating">⭐⭐⭐</div>
+<p>Öffentlich, akzeptabel • 50ct</p>
+<div class="wc-distance">20 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<button class="quick-btn wc" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/search/toilet+near+Gdansk+Cruise+Terminal/@54.4065,18.6673,15z','_blank')">🔍 Alle WCs in Danzig</button>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Karlskrona - Top WCs</h3>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=56.1605,15.5883&query_place_id=Marinemuseum+Karlskrona','_blank')" style="cursor:pointer">
+<strong>🏛️ Marinemuseum</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Sehr sauber, kostenlos</p>
+<div class="wc-distance">10 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=56.1612,15.5864&query_place_id=Stortorget+Karlskrona','_blank')" style="cursor:pointer">
+<strong>☕ Café am Stortorget</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Für Gäste kostenlos</p>
+<div class="wc-distance">12 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<button class="quick-btn wc" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/search/toilet+near+Karlskrona/@56.1621,15.5866,15z','_blank')">🔍 Alle WCs in Karlskrona</button>
+</div>
+
+<div class="card">
+<h3>🇩🇰 Kopenhagen - Top WCs</h3>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=55.6723,12.5651&query_place_id=Kobenhavn+H','_blank')" style="cursor:pointer">
+<strong>🏢 Hauptbahnhof (Københavns H)</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Top modern, sehr sauber • 10 DKK</p>
+<div class="wc-distance">10 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=55.6761,12.5683&query_place_id=Nyhavn+Copenhagen','_blank')" style="cursor:pointer">
+<strong>🧜 Nyhavn (Hafen)</strong>
+<div class="wc-rating">⭐⭐⭐⭐</div>
+<p>Öffentlich, gut gepflegt • 5 DKK</p>
+<div class="wc-distance">5 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<div class="wc-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=55.6787,12.5771&query_place_id=Magasin+du+Nord','_blank')" style="cursor:pointer">
+<strong>🛍️ Magasin du Nord</strong>
+<div class="wc-rating">⭐⭐⭐⭐⭐</div>
+<p>Luxus-Kaufhaus, kostenlos</p>
+<div class="wc-distance">15 Min</div>
+<span style="position:absolute;bottom:15px;right:15px;font-size:1.3em;color:#4facfe">🧭</span>
+</div>
+<button class="quick-btn wc" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/search/toilet+near+Copenhagen/@55.7047,12.5994,15z','_blank')">🔍 Alle WCs in Kopenhagen</button>
+</div>
+
+<div class="info-card">
+<h3>💡 WC-Finder Tipps</h3>
+<p>• <strong>Blauer Button oben:</strong> GPS-basierte WC-Suche!<br>
+• <strong>"Alle WCs" Button:</strong> Zeigt alle Toiletten der Stadt<br>
+• <strong>WC-Karten anklicken:</strong> Direkte Navigation<br>
+• Schweden/Dänemark: 1-2€ Gebühr, sehr sauber<br>
+• Polen: Günstiger, oft einfacher<br>
+• Kaufhäuser: Meist beste + kostenlose Option!</p>
+</div>
+</div>
+
+<!-- NAVIGATION TOOL -->
+<div id="navigatePage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon">🧭</div>
+<h1>Zurück zum Schiff</h1>
+<div class="subtitle">Dein Standort → Nächstes Terminal</div>
+</div>
+
+<div class="card">
+<h3>📍 GPS-Navigation</h3>
+<p style="margin-bottom:15px">Finde automatisch das nächste Terminal basierend auf deinem Standort!</p>
+<button class="quick-btn navigation" style="width:100%;padding:15px" onclick="APP.findNearestTerminal()">🎯 Nächstes Terminal finden</button>
+<div id="gps-result" style="margin-top:20px"></div>
+</div>
+
+<div class="card">
+<h3>🗺️ Alle Terminal-Adressen</h3>
+<div id="terminal-addresses">Lädt...</div>
+</div>
+
+<div class="info-card">
+<h3>💡 Navigation-Tipps</h3>
+<p>• GPS-Freigabe erlauben für beste Ergebnisse<br>
+• Offline-Karten vorher downloaden<br>
+• Taxi: Zeig dem Fahrer die Adresse<br>
+• Notfall: 112 funktioniert überall</p>
+</div>
+</div>
+
+<!-- ADMIN TOOL -->
+<div id="adminPage" class="page">
+<button class="back-btn" onclick="APP.showPage('homePage')">← Zurück</button>
+<div class="header">
+<div class="ship-icon">⚙️</div>
+<h1>Zeiten anpassen</h1>
+<div class="subtitle">Ankunfts- & Abfahrtszeiten bearbeiten</div>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Stockholm (01. Juni)</h3>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⚓ Ankunft:</label>
+<input type="time" id="edit-stockholm-arr" value="08:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⛵ Abfahrt:</label>
+<input type="time" id="edit-stockholm-dep" value="18:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Visby (02. Juni)</h3>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⚓ Ankunft:</label>
+<input type="time" id="edit-visby-arr" value="10:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⛵ Abfahrt:</label>
+<input type="time" id="edit-visby-dep" value="19:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+</div>
+
+<div class="card">
+<h3>🇵🇱 Danzig (03. Juni)</h3>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⚓ Ankunft:</label>
+<input type="time" id="edit-gdansk-arr" value="10:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⛵ Abfahrt:</label>
+<input type="time" id="edit-gdansk-dep" value="20:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+</div>
+
+<div class="card">
+<h3>🇸🇪 Karlskrona (04. Juni)</h3>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⚓ Ankunft:</label>
+<input type="time" id="edit-karlskrona-arr" value="08:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⛵ Abfahrt:</label>
+<input type="time" id="edit-karlskrona-dep" value="18:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+</div>
+
+<div class="card">
+<h3>🇩🇰 Kopenhagen (05. Juni)</h3>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⚓ Ankunft:</label>
+<input type="time" id="edit-copenhagen-arr" value="14:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+<div style="margin:15px 0">
+<label style="display:block;margin-bottom:5px;font-weight:700">⛵ Abfahrt:</label>
+<input type="time" id="edit-copenhagen-dep" value="21:00" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1.1em">
+</div>
+</div>
+
+<button class="quick-btn admin" style="width:100%;padding:18px;font-size:1.1em;margin-top:15px" onclick="APP.saveAllTimes()">💾 Alle Zeiten speichern</button>
+
+<div class="info-card" style="margin-top:15px">
+<h3>ℹ️ Hinweis</h3>
+<p>Die Zeiten werden lokal auf deinem Gerät gespeichert und bleiben auch nach dem Schließen der App erhalten.</p>
+</div>
+</div>
+
+</div>
 <script>
-'use strict';
-
 const APP = {
-    currentPage: 'home',
+currentHarbor: null,
+currentPage: 'homePage',
 
-    // Terminal database with GPS coordinates
-    terminals: {
-        stockholm: [
-            {
-                name: 'Frihamnen',
-                lat: 59.3514,
-                lon: 18.1089,
-                address: 'Magasinsgatan 15, 115 41 Stockholm',
-                transport: '🚇 T-Centralen → Ropsten (Röd linje)<br>🚌 Ropsten → Frihamnen (Bus 76)<br>⏱️ ~30 Min<br>⚠️ Letzter Bus: ~23:00 Uhr'
-            },
-            {
-                name: 'Stadsgården',
-                lat: 59.3178,
-                lon: 18.0931,
-                address: 'Stadsgårdskajen, 116 45 Stockholm',
-                transport: '🚶 10 Min zu Fuß von Gamla Stan<br>🚌 Bus 53/76 → Stadsgården<br>⏱️ ~5 Min<br>💡 Direkt zentral!'
-            },
-            {
-                name: 'Värtahamnen',
-                lat: 59.3442,
-                lon: 18.1042,
-                address: 'Värtavägen, 115 42 Stockholm',
-                transport: '🚌 Bus 1/76 → Värtahamnen<br>🚇 Oder T-bana Gärdet<br>⏱️ ~20 Min<br>⚠️ Letzter Bus: ~23:30 Uhr'
-            }
-        ],
-        visby: [
-            {
-                name: 'Visby Hamn',
-                lat: 57.6348,
-                lon: 18.2948,
-                address: 'Hamnplan, 621 57 Visby',
-                transport: '🚶 Direkt in der Altstadt!<br>Alles zu Fuß erreichbar<br>💡 Kein ÖPNV nötig'
-            }
-        ],
-        gdansk: [
-            {
-                name: 'Gdańsk Port (Gdynia)',
-                lat: 54.5189,
-                lon: 18.5500,
-                address: 'Nabrzeże Norweskie, Gdynia',
-                transport: '🚶 10-15 Min → Gdynia Główna<br>🚂 SKM-Zug → Gdańsk (30 Min)<br>⏱️ ~45 Min gesamt<br>⚠️ Letzter Zug: ~22:30 Uhr'
-            }
-        ],
-        karlskrona: [
-            {
-                name: 'Karlskrona Cruise Terminal',
-                lat: 56.1616,
-                lon: 15.5900,
-                address: 'Stumholmen, 371 33 Karlskrona',
-                transport: '🚶 1 km / 12 Min ins Zentrum<br>Alles fußläufig!<br>💡 Kein ÖPNV nötig'
-            }
-        ],
-        copenhagen: [
-            {
-                name: 'Oceankaj',
-                lat: 55.7034,
-                lon: 12.5994,
-                address: 'Oceankaj, 2150 København',
-                transport: '🚌 Shuttle → Østerport<br>🚇 S-Bahn → Nørreport<br>⏱️ ~20 Min<br>⚠️ Letzter Shuttle: ~20:00 Uhr'
-            },
-            {
-                name: 'Langelinie',
-                lat: 55.6926,
-                lon: 12.5989,
-                address: 'Langelinie, 2100 København',
-                transport: '🚶 15 Min zu Fuß zu Nyhavn<br>🚌 Bus 26/1A<br>⏱️ ~10 Min<br>💡 Sehr zentral!'
-            },
-            {
-                name: 'Nordre Toldbod',
-                lat: 55.6889,
-                lon: 12.5958,
-                address: 'Nordre Toldbod, 1259 København',
-                transport: '🚶 10 Min zu Fuß zu Nyhavn!<br>Direkt zentral<br>💡 Bestes Terminal für Altstadt'
-            }
-        ]
-    },
+harbors: {
+stockholm: {
+name: 'Stockholm',
+flag: '🇸🇪',
+country: 'Schweden',
+date: '2026-06-01',
+arrivalDefault: '08:00',
+departureDefault: '18:00',
+terminal: {
+name: 'Stadsgården Terminal',
+address: 'Stadsgårdskajen, 116 45 Stockholm',
+coords: {lat: 59.3178, lng: 18.0894},
+distance: 'Zentrum: 10 Min zu Fuß',
+transport: 'Bus 76 (5 Min) oder zu Fuß entlang des Wassers'
+},
+tickets: 'Stockholm Pass: 60€/Tag - ÖPNV + viele Museen kostenlos! Lohnt sich ab 2 Attraktionen.',
+attractions: [
+{name: 'Vasa Museum', time: '2-3 Std', price: '18€', tip: 'Original-Kriegsschiff von 1628 - UNESCO Welterbe!'},
+{name: 'Gamla Stan (Altstadt)', time: '2-3 Std', price: 'Kostenlos', tip: 'Königspalast + bunte Häuser, sehr fotogen!'},
+{name: 'ABBA Museum', time: '1.5 Std', price: '25€', tip: 'Interaktiv & lustig - auch für Nicht-Fans!'},
+{name: 'Skansen Freilichtmuseum', time: '2-3 Std', price: '20€', tip: 'Ältestes Freilichtmuseum der Welt + Zoo'}
+],
+routeSteps: [
+{text: 'Start: Terminal Stadsgården', coords: {lat: 59.3178, lng: 18.0894}},
+{text: '10 Min zu Fuß → Vasa Museum (2 Std)', coords: {lat: 59.3280, lng: 18.0916}, name: 'Vasa Museum'},
+{text: 'Bus 67 → Gamla Stan (2 Std)', coords: {lat: 59.3251, lng: 18.0719}, name: 'Gamla Stan'},
+{text: 'Mittagessen in der Altstadt', coords: {lat: 59.3251, lng: 18.0719}},
+{text: 'U-Bahn → Skansen ODER ABBA Museum (1.5 Std)', coords: {lat: 59.3255, lng: 18.1028}, name: 'Skansen'},
+{text: 'Zurück zum Schiff: Bus 76 oder Taxi (15€)', coords: {lat: 59.3178, lng: 18.0894}}
+],
+food: [
+{name: 'Pelikan', type: 'Schwedische Küche', price: '€€', dish: 'Köttbullar (Fleischbällchen)', location: 'Södermalm'},
+{name: 'Östermalms Saluhall', type: 'Food Market', price: '€€', dish: 'Garnelen-Sandwich', location: 'Zentrum'},
+{name: 'Café Schweizer', type: 'Café & Fika', price: '€', dish: 'Kanelbullar (Zimtschnecken)', location: 'Gamla Stan'}
+],
+phrases: [
+{de: 'Hallo', foreign: 'Hej', pronounce: 'hey'},
+{de: 'Danke', foreign: 'Tack', pronounce: 'tack'},
+{de: 'Wo ist...?', foreign: 'Var är...?', pronounce: 'vaar ärr'},
+{de: 'Die Rechnung bitte', foreign: 'Notan tack', pronounce: 'noo-tan tack'},
+{de: 'Toilette', foreign: 'Toalett', pronounce: 'toa-lett'}
+]
+},
 
-    harbors: {
-        stockholm: {arrival: '2026-06-01T08:00:00', departure: '2026-06-01T18:00:00'},
-        visby: {arrival: '2026-06-02T10:00:00', departure: '2026-06-02T19:00:00'},
-        gdansk: {arrival: '2026-06-03T10:00:00', departure: '2026-06-03T20:00:00'},
-        karlskrona: {arrival: '2026-06-04T08:00:00', departure: '2026-06-04T18:00:00'},
-        copenhagen: {arrival: '2026-06-05T14:00:00', departure: '2026-06-05T21:00:00'}
-    },
+visby: {
+name: 'Visby',
+flag: '🇸🇪',
+country: 'Schweden (Insel Gotland)',
+date: '2026-06-02',
+arrivalDefault: '10:00',
+departureDefault: '19:00',
+terminal: {
+name: 'Visby Hafen',
+address: 'Hamnplan 1, 621 57 Visby',
+coords: {lat: 57.6348, lng: 18.2948},
+distance: 'Altstadt: 5 Min zu Fuß',
+transport: 'Alles fußläufig erreichbar'
+},
+tickets: 'Keine Tageskarte nötig - alles zu Fuß!',
+attractions: [
+{name: 'Stadtmauer UNESCO', time: '1 Std', price: 'Kostenlos', tip: '3.4 km mittelalterliche Mauer - traumhaft!'},
+{name: 'Gotlands Museum', time: '1.5 Std', price: '12€', tip: 'Wikinger-Geschichte + Schätze'},
+{name: 'Botanischer Garten', time: '1 Std', price: 'Kostenlos', tip: 'Ruinen + Blumen, sehr romantisch'},
+{name: 'Almedalen Park', time: '30 Min', price: 'Kostenlos', tip: 'Perfekt für Pause am Meer'}
+],
+routeSteps: [
+{text: 'Start: Visby Hafen', coords: {lat: 57.6348, lng: 18.2948}},
+{text: '5 Min zu Fuß → Stadtmauer-Rundgang (1 Std)', coords: {lat: 57.6376, lng: 18.2958}, name: 'Stadtmauer'},
+{text: 'Altstadt erkunden (1.5 Std)', coords: {lat: 57.6376, lng: 18.2958}},
+{text: 'Mittagessen in der Altstadt', coords: {lat: 57.6376, lng: 18.2958}},
+{text: 'Gotlands Museum (1.5 Std)', coords: {lat: 57.6381, lng: 18.2945}, name: 'Gotlands Museum'},
+{text: 'Botanischer Garten (1 Std)', coords: {lat: 57.6395, lng: 18.2892}, name: 'Botanischer Garten'},
+{text: 'Zurück zum Schiff: 10 Min zu Fuß', coords: {lat: 57.6348, lng: 18.2948}}
+],
+food: [
+{name: 'Bakfickan', type: 'Fisch & Meeresfrüchte', price: '€€€', dish: 'Gotland-Lachs', location: 'Altstadt'},
+{name: 'Crêperiet', type: 'Crêpes', price: '€', dish: 'Herzhafte Crêpes', location: 'Donnersplats'},
+{name: 'Gute Krog', type: 'Traditionell', price: '€€', dish: 'Lamm von Gotland', location: 'Stadtmauer'}
+],
+phrases: [
+{de: 'Hallo', foreign: 'Hej', pronounce: 'hey'},
+{de: 'Danke', foreign: 'Tack', pronounce: 'tack'},
+{de: 'Sehr schön hier!', foreign: 'Väldigt vacker!', pronounce: 'väldigt vacker'},
+{de: 'Die Rechnung', foreign: 'Notan', pronounce: 'noo-tan'}
+]
+},
 
-    init() {
-        console.log('🚢 Kreuzfahrt Navigator GPS v10.0!');
-        this.updateCountdowns();
-        setInterval(() => this.updateCountdowns(), 60000);
-    },
+gdansk: {
+name: 'Danzig',
+flag: '🇵🇱',
+country: 'Polen',
+date: '2026-06-03',
+arrivalDefault: '10:00',
+departureDefault: '20:00',
+terminal: {
+name: 'Gdańsk Cruise Terminal',
+address: 'Przemysłowa 1, 80-862 Gdańsk',
+coords: {lat: 54.4065, lng: 18.6673},
+distance: 'Altstadt: 20 Min mit Tram',
+transport: 'Tram 3/8 Richtung Zentrum (2.50 PLN / ~0.60€)'
+},
+tickets: '24h-Ticket: 15 PLN (~3.50€) - lohnt sich!',
+attractions: [
+{name: 'Rechtstadt (Altstadt)', time: '2 Std', price: 'Kostenlos', tip: 'Langgasse + Neptunbrunnen - Postkarten-Motiv!'},
+{name: 'Marienkirche', time: '45 Min', price: '5 PLN', tip: 'Größte Backsteinkirche der Welt'},
+{name: 'Bernsteinmuseum', time: '1 Std', price: '20 PLN', tip: 'Danzig = Bernstein-Hauptstadt!'},
+{name: 'Westerplatte', time: '1.5 Std', price: '10 PLN', tip: 'Kriegsgedenkstätte, historisch wichtig'}
+],
+routeSteps: [
+{text: 'Start: Terminal Gdańsk', coords: {lat: 54.4065, lng: 18.6673}},
+{text: 'Tram 3/8 → Altstadt (20 Min)', coords: {lat: 54.3520, lng: 18.6531}, name: 'Rechtstadt Danzig'},
+{text: 'Rechtstadt erkunden (2 Std)', coords: {lat: 54.3520, lng: 18.6531}},
+{text: 'Marienkirche + Bernsteinmuseum (2 Std)', coords: {lat: 54.3491, lng: 18.6537}, name: 'Marienkirche'},
+{text: 'Mittagessen an der Mottlau', coords: {lat: 54.3520, lng: 18.6531}},
+{text: 'Optional: Westerplatte (Bus 106, 30 Min)', coords: {lat: 54.4070, lng: 18.6710}, name: 'Westerplatte'},
+{text: 'Zurück: Tram 3/8 zum Terminal', coords: {lat: 54.4065, lng: 18.6673}}
+],
+food: [
+{name: 'Gdańska', type: 'Polnisch', price: '€', dish: 'Pierogi (gefüllte Teigtaschen)', location: 'Rechtstadt'},
+{name: 'Goldwasser Restaurant', type: 'Traditionell', price: '€€', dish: 'Bigos (Sauerkraut-Eintopf)', location: 'Mottlau'},
+{name: 'Pierogarnia Mandu', type: 'Pierogi-Spezial', price: '€', dish: '10+ Pierogi-Sorten', location: 'Zentrum'}
+],
+phrases: [
+{de: 'Hallo', foreign: 'Cześć', pronounce: 'tschäschtsch'},
+{de: 'Danke', foreign: 'Dziękuję', pronounce: 'dschen-ku-jeh'},
+{de: 'Wie viel kostet das?', foreign: 'Ile to kosztuje?', pronounce: 'i-le to kosch-tu-je'},
+{de: 'Die Rechnung bitte', foreign: 'Rachunek poproszę', pronounce: 'ra-chu-nek po-pro-sche'},
+{de: 'Prost!', foreign: 'Na zdrowie!', pronounce: 'na sdro-vje'}
+]
+},
 
-    showHome() {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('homePage').classList.add('active');
-        this.currentPage = 'home';
-        window.scrollTo(0, 0);
-    },
+karlskrona: {
+name: 'Karlskrona',
+flag: '🇸🇪',
+country: 'Schweden',
+date: '2026-06-04',
+arrivalDefault: '08:00',
+departureDefault: '18:00',
+terminal: {
+name: 'Karlskrona Cruise Terminal',
+address: 'Skeppsbron, 371 33 Karlskrona',
+coords: {lat: 56.1621, lng: 15.5866},
+distance: 'Zentrum: 15 Min zu Fuß',
+transport: 'Bus 7 (5 Min) oder Spaziergang am Wasser'
+},
+tickets: 'Keine Karte nötig - kompakt & fußläufig',
+attractions: [
+{name: 'Marinemuseum', time: '2 Std', price: 'Kostenlos!', tip: 'Eines der besten Marinemuseen Europas!'},
+{name: 'Altstadt mit Stortorget', time: '1.5 Std', price: 'Kostenlos', tip: 'Größter Marktplatz Schwedens'},
+{name: 'Inselhopping (Aspö)', time: '2 Std', price: 'Fähre kostenlos', tip: 'Mini-Kreuzfahrt durch den Schärengarten'},
+{name: 'Fredrikskyrkan', time: '30 Min', price: 'Kostenlos', tip: 'Barocke Kirche, sehr beeindruckend'}
+],
+routeSteps: [
+{text: 'Start: Terminal Karlskrona', coords: {lat: 56.1621, lng: 15.5866}},
+{text: '15 Min zu Fuß → Marinemuseum (2 Std)', coords: {lat: 56.1605, lng: 15.5883}, name: 'Marinemuseum Karlskrona'},
+{text: 'Bus 7 → Stortorget (1 Std)', coords: {lat: 56.1612, lng: 15.5864}, name: 'Stortorget'},
+{text: 'Mittagessen am Marktplatz', coords: {lat: 56.1612, lng: 15.5864}},
+{text: 'Fredrikskyrkan (30 Min)', coords: {lat: 56.1615, lng: 15.5855}, name: 'Fredrikskyrkan'},
+{text: 'Optional: Fähre nach Aspö (1 Std Überfahrt)', coords: {lat: 56.1095, lng: 15.3791}, name: 'Aspö'},
+{text: 'Zurück: 15 Min zu Fuß zum Schiff', coords: {lat: 56.1621, lng: 15.5866}}
+],
+food: [
+{name: 'Glas på Glas', type: 'Modern Schwedisch', price: '€€', dish: 'Fischgerichte', location: 'Hafen'},
+{name: 'Café Ångbåtsbryggan', type: 'Café', price: '€', dish: 'Fika + Kuchen', location: 'Stortorget'},
+{name: 'Montmartre', type: 'Französisch', price: '€€€', dish: 'Meeresfrüchte', location: 'Zentrum'}
+],
+phrases: [
+{de: 'Hallo', foreign: 'Hej', pronounce: 'hey'},
+{de: 'Danke', foreign: 'Tack', pronounce: 'tack'},
+{de: 'Sehr schön!', foreign: 'Jättefint!', pronounce: 'jätte-fint'},
+{de: 'Auf Wiedersehen', foreign: 'Hejdå', pronounce: 'hey-doh'}
+]
+},
 
-    getCurrentPort() {
-        const now = new Date();
-        for (let port in this.harbors) {
-            const arrival = new Date(this.harbors[port].arrival);
-            const departure = new Date(this.harbors[port].departure);
-            if (now >= arrival && now <= departure) {
-                return { port, ...this.harbors[port] };
-            }
-        }
-        // If not in port, show next port
-        for (let port in this.harbors) {
-            const arrival = new Date(this.harbors[port].arrival);
-            if (now < arrival) {
-                return { port, ...this.harbors[port] };
-            }
-        }
-        return null;
-    },
+copenhagen: {
+name: 'Kopenhagen',
+flag: '🇩🇰',
+country: 'Dänemark',
+date: '2026-06-05',
+arrivalDefault: '14:00',
+departureDefault: '21:00',
+terminal: {
+name: 'Oceankaj Terminal',
+address: 'Dampfærgevej 10, 2100 København Ø',
+coords: {lat: 55.7047, lng: 12.5994},
+distance: 'Zentrum: 15 Min mit Metro',
+transport: 'Metro M2 Richtung Vanløse (30 DKK / ~4€)'
+},
+tickets: '24h City Pass: 80 DKK (~11€) - ÖPNV unbegrenzt',
+attractions: [
+{name: 'Nyhavn (Hafen)', time: '1 Std', price: 'Kostenlos', tip: 'Bunte Häuser - DAS Postkarten-Motiv!'},
+{name: 'Kleine Meerjungfrau', time: '30 Min', price: 'Kostenlos', tip: 'Wahrzeichen, aber SEHR klein!'},
+{name: 'Tivoli Freizeitpark', time: '2-3 Std', price: '18€', tip: 'Ältester Freizeitpark der Welt (seit 1843)'},
+{name: 'Schloss Amalienborg', time: '1 Std', price: '12€', tip: 'Residenz der Königsfamilie, Wachablösung 12 Uhr'}
+],
+routeSteps: [
+{text: '⚠️ NUR 7 STUNDEN ZEIT!', coords: {lat: 55.7047, lng: 12.5994}},
+{text: 'Start: Terminal → Metro M2 (15 Min)', coords: {lat: 55.6761, lng: 12.5683}, name: 'Nyhavn'},
+{text: 'Nyhavn (30 Min Fotostopp)', coords: {lat: 55.6761, lng: 12.5683}},
+{text: 'Zu Fuß → Amalienborg (1 Std)', coords: {lat: 55.6840, lng: 12.5935}, name: 'Schloss Amalienborg'},
+{text: 'Kleine Meerjungfrau (20 Min)', coords: {lat: 55.6929, lng: 12.5993}, name: 'Kleine Meerjungfrau'},
+{text: 'Zurück nach Nyhavn, Abendessen', coords: {lat: 55.6761, lng: 12.5683}},
+{text: 'Metro zurück zum Schiff - PÜNKTLICH!', coords: {lat: 55.7047, lng: 12.5994}}
+],
+food: [
+{name: 'Smørrebrød (Traditionell)', type: 'Dänisch', price: '€€', dish: 'Belegte Brote - Klassiker!', location: 'Nyhavn'},
+{name: 'Hot Dog Stand', type: 'Street Food', price: '€', dish: 'Rød Pølse (Rote Wurst)', location: 'Überall'},
+{name: 'Restaurant Schønnemann', type: 'Gehobene Küche', price: '€€€', dish: 'Smørrebrød Deluxe', location: 'Zentrum'}
+],
+phrases: [
+{de: 'Hallo', foreign: 'Hej', pronounce: 'hey'},
+{de: 'Danke', foreign: 'Tak', pronounce: 'tak'},
+{de: 'Wie komme ich zu...?', foreign: 'Hvordan kommer jeg til...?', pronounce: 'vor-dan kom-mer yay til'},
+{de: 'Die Rechnung', foreign: 'Regningen', pronounce: 'rai-ning-en'},
+{de: 'Prost!', foreign: 'Skål!', pronounce: 'skoal'}
+]
+}
+},
 
-    showBackToShip() {
-        const currentPort = this.getCurrentPort();
+init() {
+this.loadSavedTimes();
+this.loadAdminInputs();
+this.updateAllCountdowns();
+this.renderTerminalAddresses();
+setInterval(() => this.updateAllCountdowns(), 30000);
+},
 
-        if (!currentPort) {
-            alert('Kreuzfahrt noch nicht gestartet!');
-            return;
-        }
+showPage(pageId) {
+document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+document.getElementById(pageId).classList.add('active');
+this.currentPage = pageId;
+},
 
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('backToShipPage').classList.add('active');
-        this.currentPage = 'backToShip';
-        window.scrollTo(0, 0);
+showHarbor(harborId) {
+this.currentHarbor = harborId;
+const h = this.harbors[harborId];
+document.getElementById('harbor-flag').textContent = h.flag;
+document.getElementById('harbor-title').textContent = h.name;
+document.getElementById('harbor-subtitle').textContent = `${h.country} • ${this.formatDate(h.date)}`;
+this.renderHarborDetails(h);
+this.showPage('harborPage');
+this.switchTab('info');
+this.updateHarborCountdown(harborId);
+},
 
-        const portNames = {
-            stockholm: 'Stockholm',
-            visby: 'Visby',
-            gdansk: 'Danzig',
-            karlskrona: 'Karlskrona',
-            copenhagen: 'Kopenhagen'
-        };
+renderHarborDetails(h) {
+document.getElementById('terminal-info').innerHTML = `
+<p><strong>${h.terminal.name}</strong></p>
+<div class="address-box">
+<div class="lang-label">📍 Adresse:</div>
+<div class="address-text">${h.terminal.address}</div>
+<button class="copy-btn" onclick="navigator.clipboard.writeText('${h.terminal.address}');alert('✅ Adresse kopiert!')">📋 Kopieren</button>
+</div>
+<p style="margin-top:15px"><strong>🚶 Distanz:</strong> ${h.terminal.distance}</p>
+<p><strong>🚌 Transport:</strong> ${h.terminal.transport}</p>
+<button class="quick-btn navigation" style="width:100%;margin-top:15px;padding:15px" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${h.terminal.coords.lat},${h.terminal.coords.lng}','_blank')">🗺️ Navigation starten</button>
+`;
 
-        document.getElementById('backToShipSubtitle').textContent = portNames[currentPort.port] || currentPort.port;
+document.getElementById('ticket-info').innerHTML = `<p>${h.tickets}</p>`;
 
-        this.updateBackToShipCountdown(currentPort);
-        setInterval(() => this.updateBackToShipCountdown(currentPort), 60000);
+let attractionsHTML = '';
+h.attractions.forEach(a => {
+attractionsHTML += `
+<div class="attraction-item">
+<strong>${a.name}</strong>
+<p>${a.tip}</p>
+<div class="attraction-meta">
+<div class="meta-item">⏱️ ${a.time}</div>
+<div class="meta-item">💰 ${a.price}</div>
+</div>
+</div>`;
+});
+document.getElementById('attractions-list').innerHTML = attractionsHTML;
 
-        // Start GPS detection
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const userLat = position.coords.latitude;
-                    const userLon = position.coords.longitude;
-                    const nearest = this.findNearestTerminal(currentPort.port, userLat, userLon);
-                    this.displayTerminalInfo(nearest, currentPort);
-                },
-                (error) => {
-                    // GPS failed - show manual selection
-                    this.displayManualTerminalSelection(currentPort);
-                }
-            );
-        } else {
-            // No GPS - show manual selection
-            this.displayManualTerminalSelection(currentPort);
-        }
-    },
+let routeHTML = '';
+h.routeSteps.forEach((step, i) => {
+const hasCoords = step.coords && step.coords.lat && step.coords.lng;
+const clickHandler = hasCoords ? `onclick="APP.openRouteStep(${step.coords.lat}, ${step.coords.lng}, '${step.name || step.text}')"` : '';
+routeHTML += `
+<div class="route-step" ${clickHandler}>
+<span class="step-number">${i+1}</span>
+<span class="step-text">${step.text}</span>
+${hasCoords ? '<span class="nav-icon">🧭</span>' : ''}
+</div>`;
+});
+document.getElementById('route-list').innerHTML = routeHTML;
 
-    findNearestTerminal(port, userLat, userLon) {
-        const portTerminals = this.terminals[port] || [];
-        let nearest = portTerminals[0];
-        let minDist = 999999;
+let foodHTML = '';
+h.food.forEach(f => {
+const priceClass = f.price === '€' ? '' : (f.price === '€€' ? 'mid' : 'high');
+foodHTML += `
+<div class="restaurant-item">
+<strong>${f.name}</strong> <span class="price-badge ${priceClass}">${f.price}</span>
+<p>${f.type} • ${f.dish}</p>
+<p style="font-size:0.9em;color:#666;margin-top:5px">📍 ${f.location}</p>
+</div>`;
+});
+document.getElementById('food-list').innerHTML = foodHTML;
 
-        portTerminals.forEach(terminal => {
-            const dist = this.calculateDistance(userLat, userLon, terminal.lat, terminal.lon);
-            if (dist < minDist) {
-                minDist = dist;
-                nearest = { ...terminal, distance: dist };
-            }
-        });
+let phrasesHTML = '';
+h.phrases.forEach(p => {
+phrasesHTML += `
+<div class="phrase-item">
+<div>
+<div class="phrase-de">${p.de}</div>
+<div class="phrase-pronounce">(${p.pronounce})</div>
+</div>
+<div class="phrase-foreign">${p.foreign}</div>
+</div>`;
+});
+document.getElementById('phrases-list').innerHTML = phrasesHTML;
+},
 
-        return nearest;
-    },
+openRouteStep(lat, lng, name) {
+const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${encodeURIComponent(name)}`;
+window.open(url, '_blank');
+},
 
-    calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371000; // Earth radius in meters
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                  Math.sin(dLon/2) * Math.sin(dLon/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return R * c;
-    },
+openFullRoute() {
+const h = this.harbors[this.currentHarbor];
+if (!h || !h.routeSteps) return;
+const waypoints = h.routeSteps
+.filter(s => s.coords && s.coords.lat && s.coords.lng)
+.map(s => `${s.coords.lat},${s.coords.lng}`)
+.join('|');
+const url = `https://www.google.com/maps/dir/?api=1&waypoints=${waypoints}&travelmode=walking`;
+window.open(url, '_blank');
+},
 
-    displayTerminalInfo(terminal, port) {
-        const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${terminal.lat},${terminal.lon}`;
+switchTab(tabName) {
+document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById(`tab-${tabName}`).classList.add('active');
+},
 
-        let html = `<div class="card">`;
+showTool(tool) {
+const pages = {
+weather: 'weatherPage',
+currency: 'currencyPage',
+wc: 'wcPage',
+navigate: 'navigatePage',
+admin: 'adminPage'
+};
+this.showPage(pages[tool]);
+},
 
-        html += `<div class="terminal-info">`;
-        html += `<strong>📍 ${terminal.name}</strong>`;
-        html += `<div style="font-size:0.95em;margin-top:5px;">${terminal.address}</div>`;
-        if (terminal.distance) {
-            const distKm = (terminal.distance / 1000).toFixed(1);
-            html += `<div style="margin-top:8px;color:#666;font-size:0.9em;">📏 ${distKm} km entfernt</div>`;
-        }
-        html += `</div>`;
+updateAllCountdowns() {
+Object.keys(this.harbors).forEach(id => {
+this.updateCountdown(id);
+});
+if (this.currentPage === 'harborPage' && this.currentHarbor) {
+this.updateHarborCountdown(this.currentHarbor);
+}
+},
 
-        html += `<a href="${mapsUrl}" target="_blank" class="copy-btn" style="display:block;text-align:center;text-decoration:none;margin:15px 0;">`;
-        html += `🗺️ In Google Maps öffnen`;
-        html += `</a>`;
+updateCountdown(harborId) {
+const h = this.harbors[harborId];
+const arrTime = localStorage.getItem(`${harborId}-arr`) || h.arrivalDefault;
+const arrDateTime = new Date(`${h.date}T${arrTime}:00`);
+const now = new Date();
+const diff = arrDateTime - now;
 
-        html += `<button class="copy-btn" style="width:100%;" onclick="APP.copyText('${terminal.address}')">`;
-        html += `📋 Adresse kopieren`;
-        html += `</button>`;
+const el = document.getElementById(`countdown-${harborId}`);
+if (!el) return;
 
-        html += `</div>`;
+if (diff < 0) {
+const depTime = localStorage.getItem(`${harborId}-dep`) || h.departureDefault;
+const depDateTime = new Date(`${h.date}T${depTime}:00`);
+const depDiff = depDateTime - now;
+if (depDiff < 0) {
+el.textContent = '⚓ Vorbei';
+el.className = 'countdown';
+} else {
+const h = Math.floor(depDiff / 3600000);
+const m = Math.floor((depDiff % 3600000) / 60000);
+el.textContent = `⛵ Abfahrt in ${h}h ${m}m`;
+el.className = depDiff < 3600000 ? 'countdown urgent' : 'countdown soon';
+}
+} else {
+const d = Math.floor(diff / 86400000);
+const h = Math.floor((diff % 86400000) / 3600000);
+const m = Math.floor((diff % 3600000) / 60000);
+if (d > 0) {
+el.textContent = `Noch ${d} Tage ${h}h`;
+el.className = 'countdown';
+} else if (h > 6) {
+el.textContent = `Noch ${h}h ${m}m`;
+el.className = 'countdown';
+} else {
+el.textContent = `⚠️ Noch ${h}h ${m}m`;
+el.className = 'countdown soon';
+}
+}
+},
 
-        html += `<div class="card">`;
-        html += `<h3>🚇 ÖPNV zurück zum Schiff:</h3>`;
-        html += `<div style="line-height:1.8;">${terminal.transport}</div>`;
-        html += `</div>`;
+updateHarborCountdown(harborId) {
+const h = this.harbors[harborId];
+const arrTime = localStorage.getItem(`${harborId}-arr`) || h.arrivalDefault;
+const depTime = localStorage.getItem(`${harborId}-dep`) || h.departureDefault;
+const arrDateTime = new Date(`${h.date}T${arrTime}:00`);
+const depDateTime = new Date(`${h.date}T${depTime}:00`);
+const now = new Date();
 
-        document.getElementById('backToShipContent').innerHTML = html;
-    },
+const bigCountdown = document.getElementById('harbor-big-countdown');
+const timeEl = document.getElementById('harbor-countdown-time');
+const labelEl = document.getElementById('harbor-countdown-label');
 
-    displayManualTerminalSelection(port) {
-        const portTerminals = this.terminals[port.port] || [];
+if (now < arrDateTime) {
+const diff = arrDateTime - now;
+const d = Math.floor(diff / 86400000);
+const h = Math.floor((diff % 86400000) / 3600000);
+timeEl.textContent = d > 0 ? `${d}T ${h}h` : `${h}h`;
+labelEl.textContent = 'bis zur Ankunft';
+bigCountdown.className = 'big-countdown';
+} else if (now < depDateTime) {
+const diff = depDateTime - now;
+const h = Math.floor(diff / 3600000);
+const m = Math.floor((diff % 3600000) / 60000);
+timeEl.textContent = `${h}h ${m}m`;
+labelEl.textContent = 'bis zur Abfahrt';
+bigCountdown.className = diff < 3600000 ? 'big-countdown urgent' : 'big-countdown';
+} else {
+timeEl.textContent = '✅';
+labelEl.textContent = 'Vorbei';
+bigCountdown.className = 'big-countdown';
+}
+},
 
-        let html = `<div class="card">`;
-        html += `<h3>📍 Wähle dein Terminal:</h3>`;
-        html += `<p style="color:#666;margin-bottom:15px;">GPS nicht verfügbar - bitte wähle das richtige Terminal:</p>`;
+formatDate(dateStr) {
+const d = new Date(dateStr);
+return d.toLocaleDateString('de-DE', {day: '2-digit', month: 'long'});
+},
 
-        portTerminals.forEach((terminal, idx) => {
-            html += `<button class="terminal-btn" onclick="APP.displayTerminalInfo(APP.terminals['${port.port}'][${idx}], {port:'${port.port}',departure:'${port.departure}'})">`;
-            html += `<strong>${terminal.name}</strong><br>`;
-            html += `<small style="color:#666;">${terminal.address}</small>`;
-            html += `</button>`;
-        });
+convertCurrency(type) {
+const rates = {sek: 0.088, dkk: 0.134, pln: 0.23};
+const val = parseFloat(document.getElementById(`${type}-input`).value) || 0;
+const eur = (val * rates[type]).toFixed(2);
+document.getElementById(`${type}-eur`).textContent = eur;
+},
 
-        html += `</div>`;
+loadSavedTimes() {
+Object.keys(this.harbors).forEach(id => {
+const arrTime = localStorage.getItem(`${id}-arr`);
+const depTime = localStorage.getItem(`${id}-dep`);
+if (arrTime) document.getElementById(`${id}-arr-time`).textContent = arrTime;
+if (depTime) document.getElementById(`${id}-dep-time`).textContent = depTime;
+});
+},
 
-        document.getElementById('backToShipContent').innerHTML = html;
-    },
+loadAdminInputs() {
+Object.keys(this.harbors).forEach(id => {
+const h = this.harbors[id];
+const arrInput = document.getElementById(`edit-${id}-arr`);
+const depInput = document.getElementById(`edit-${id}-dep`);
+if (arrInput) arrInput.value = localStorage.getItem(`${id}-arr`) || h.arrivalDefault;
+if (depInput) depInput.value = localStorage.getItem(`${id}-dep`) || h.departureDefault;
+});
+},
 
-    updateBackToShipCountdown(port) {
-        const countdownEl = document.getElementById('backToShipCountdown');
-        if (!countdownEl) return;
+saveAllTimes() {
+Object.keys(this.harbors).forEach(id => {
+const arrVal = document.getElementById(`edit-${id}-arr`).value;
+const depVal = document.getElementById(`edit-${id}-dep`).value;
+localStorage.setItem(`${id}-arr`, arrVal);
+localStorage.setItem(`${id}-dep`, depVal);
+document.getElementById(`${id}-arr-time`).textContent = arrVal;
+document.getElementById(`${id}-dep-time`).textContent = depVal;
+});
+this.updateAllCountdowns();
+alert('✅ Alle Zeiten gespeichert!');
+},
 
-        const now = new Date();
-        const departure = new Date(port.departure);
-        const diff = departure - now;
+renderTerminalAddresses() {
+let html = '';
+Object.keys(this.harbors).forEach(id => {
+const h = this.harbors[id];
+html += `
+<div class="address-box">
+<div class="lang-label">${h.flag} ${h.name}</div>
+<div class="address-text">${h.terminal.address}</div>
+<button class="copy-btn" onclick="navigator.clipboard.writeText('${h.terminal.address}');alert('✅ Adresse kopiert!')">📋 Kopieren</button>
+<button class="quick-btn navigation" style="width:100%;margin-top:10px;padding:12px" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${h.terminal.coords.lat},${h.terminal.coords.lng}','_blank')">🗺️ Navigation</button>
+</div>`;
+});
+document.getElementById('terminal-addresses').innerHTML = html;
+},
 
-        if (diff <= 0) {
-            countdownEl.innerHTML = `<div class="big-countdown">✅ Schiff ist abgefahren</div>`;
-            return;
-        }
+findNearestTerminal() {
+const resultDiv = document.getElementById('gps-result');
+resultDiv.innerHTML = '<p style="text-align:center;color:#666">🔍 GPS-Position wird ermittelt...</p>';
 
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const isUrgent = hours < 1;
-        const className = isUrgent ? 'big-countdown urgent' : 'big-countdown';
+if (!navigator.geolocation) {
+resultDiv.innerHTML = '<div class="card" style="background:#ffe0e0;border-left:4px solid #ff0000"><h3>❌ GPS nicht verfügbar</h3><p>Dein Browser unterstützt keine GPS-Ortung. Nutze die Terminal-Adressen unten!</p></div>';
+return;
+}
 
-        let html = `<div class="${className}">`;
-        html += `<div class="label">⛵ Abfahrt in:</div>`;
-        html += `<div class="time">${hours}h ${mins}min</div>`;
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const userLat = position.coords.latitude;
+const userLng = position.coords.longitude;
+let nearest = null;
+let minDist = Infinity;
 
-        if (isUrgent) {
-            html += `<div style="margin-top:10px;font-size:1.1em;">🚨 SOFORT ZURÜCK ZUM SCHIFF!</div>`;
-        } else if (hours < 2) {
-            html += `<div style="margin-top:10px;">⚠️ Langsam Richtung Hafen!</div>`;
-        }
+Object.keys(this.harbors).forEach(id => {
+const h = this.harbors[id];
+const dist = this.calcDistance(userLat, userLng, h.terminal.coords.lat, h.terminal.coords.lng);
+if (dist < minDist) {
+minDist = dist;
+nearest = {id, harbor: h, distance: dist};
+}
+});
 
-        html += `</div>`;
-        countdownEl.innerHTML = html;
-    },
+if (nearest) {
+resultDiv.innerHTML = `
+<div class="card" style="background:#e0ffe0;border-left:4px solid #00cc66">
+<h3>✅ Nächstes Terminal gefunden!</h3>
+<p style="font-size:1.3em;font-weight:800;color:#00cc66;margin:15px 0">${nearest.harbor.flag} ${nearest.harbor.name}</p>
+<p><strong>📍 Entfernung:</strong> ${nearest.distance.toFixed(1)} km</p>
+<div class="address-box" style="margin-top:15px">
+<div class="lang-label">Adresse:</div>
+<div class="address-text">${nearest.harbor.terminal.address}</div>
+</div>
+<button class="quick-btn navigation" style="width:100%;margin-top:15px;padding:18px;font-size:1.1em" onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${nearest.harbor.terminal.coords.lat},${nearest.harbor.terminal.coords.lng}','_blank')">🚶 Route starten</button>
+</div>`;
+}
+},
+(error) => {
+resultDiv.innerHTML = `
+<div class="card" style="background:#ffe0e0;border-left:4px solid #ff6b6b">
+<h3>⚠️ GPS-Zugriff verweigert</h3>
+<p>Bitte erlaube GPS-Zugriff in deinen Browser-Einstellungen!</p>
+<p style="margin-top:15px;font-size:0.9em;color:#666">Alternativ: Nutze die Terminal-Adressen unten und gib sie manuell in Google Maps ein.</p>
+</div>`;
+}
+);
+},
 
-    copyText(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('✅ Adresse kopiert!');
-        }).catch(() => {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('✅ Adresse kopiert!');
-        });
-    },
+calcDistance(lat1, lng1, lat2, lng2) {
+const R = 6371;
+const dLat = (lat2 - lat1) * Math.PI / 180;
+const dLng = (lng2 - lng1) * Math.PI / 180;
+const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+Math.sin(dLng/2) * Math.sin(dLng/2);
+const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+return R * c;
+},
+findNearbyToilets() {
+if (!navigator.geolocation) {
+alert('❌ GPS nicht verfügbar! Nutze die "Alle WCs" Buttons pro Stadt.');
+return;
+}
 
-    updateCountdowns() {
-        Object.keys(this.harbors).forEach(harbor => {
-            const el = document.getElementById('countdown-' + harbor);
-            if (el) this.updateSingleCountdown(harbor, el);
-        });
-    },
-
-    updateSingleCountdown(harbor, el) {
-        const now = new Date();
-        const arrival = new Date(this.harbors[harbor].arrival);
-        const departure = new Date(this.harbors[harbor].departure);
-
-        if (now < arrival) {
-            const diff = arrival - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-            if (days > 0) {
-                el.textContent = `Noch ${days} Tag${days > 1 ? 'e' : ''} ${hours}h`;
-                el.className = 'countdown';
-            } else if (hours > 0) {
-                el.textContent = `Noch ${hours}h`;
-                el.className = 'countdown soon';
-            } else {
-                el.textContent = 'Heute!';
-                el.className = 'countdown soon';
-            }
-        } else if (now >= arrival && now < departure) {
-            el.textContent = '🚢 Im Hafen!';
-            el.className = 'countdown urgent';
-        } else {
-            el.textContent = '✅ Abgefahren';
-            el.className = 'countdown';
-        }
-    },
-
-    showHarbor(harbor) {
-        alert('Hafen-Details: ' + harbor);
-    },
-
-    showTool(tool) {
-        alert('Tool: ' + tool);
-    }
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const lat = position.coords.latitude;
+const lng = position.coords.longitude;
+window.open(`https://www.google.com/maps/search/toilet/@${lat},${lng},15z`, '_blank');
+},
+(error) => {
+alert('⚠️ GPS-Zugriff verweigert! Nutze die "Alle WCs" Buttons pro Stadt.');
+}
+);
+}
 };
 
 document.addEventListener('DOMContentLoaded', () => APP.init());
 </script>
-
 </body>
 </html>
