@@ -234,11 +234,12 @@ input[type="datetime-local"]{font-size:1em!important}
 </div>
 
 <div class="tab-buttons">
-<button class="tab-btn active" onclick="APP.switchTab('info')">ℹ️ Info</button>
-<button class="tab-btn" onclick="APP.switchTab('attractions')">🎯 Highlights</button>
-<button class="tab-btn" onclick="APP.switchTab('route')">🗺️ Route</button>
-<button class="tab-btn" onclick="APP.switchTab('food')">🍽️ Essen</button>
-<button class="tab-btn" onclick="APP.switchTab('phrases')">💬 Sprache</button>
+<button class="tab-btn active" data-tab="info" onclick="APP.switchTab('info', this)">ℹ️ Info</button>
+<button class="tab-btn" data-tab="attractions" onclick="APP.switchTab('attractions', this)">🎯 Highlights</button>
+<button class="tab-btn" data-tab="route" onclick="APP.switchTab('route', this)">🗺️ Route</button>
+<button class="tab-btn" data-tab="food" onclick="APP.switchTab('food', this)">🍽️ Essen</button>
+<button class="tab-btn" data-tab="phrases" onclick="APP.switchTab('phrases', this)">💬 Sprache</button>
+
 </div>
 
 <div id="tab-info" class="tab-content active">
@@ -958,12 +959,20 @@ const url = `https://www.google.com/maps/dir/?api=1&waypoints=${waypoints}&trave
 window.open(url, '_blank');
 },
 
-switchTab(tabName) {
-document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-event.target.classList.add('active');
-document.getElementById(`tab-${tabName}`).classList.add('active');
+switchTab(tabName, clickedButton = null) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+  } else {
+    const fallbackBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+    if (fallbackBtn) fallbackBtn.classList.add('active');
+  }
+
+  document.getElementById(`tab-${tabName}`).classList.add('active');
 },
+
 
 showTool(tool) {
 const pages = {
